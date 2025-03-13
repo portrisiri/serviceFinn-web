@@ -6,20 +6,13 @@ import MainNav from './components/common/MainNav';
 function App() {
   return (
     <div>
-<<<<<<< HEAD
-      App
+      <MainNav/>
+
+    <main>
+      <AppRouter/>
+    </main>
     </div>
   )
-=======
-      <MainNav />
-
-      <main>
-        <AppRouter/>
-      </main>
-
-    </div>
-  );
->>>>>>> front-control
 }
 
 export default App;

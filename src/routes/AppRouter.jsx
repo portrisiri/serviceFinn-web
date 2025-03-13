@@ -1,10 +1,13 @@
-console.log('App Router');
-import React from 'react'
+console.log("App Router");
+import React from "react";
+import Register from "../pages/auth/Register";
 
 function AppRouter() {
   return (
-    <div>AppRouter</div>
-  )
+    <div>
+      <Register />
+    </div>
+  );
 }
 
-export default AppRouter
+export default AppRouter;

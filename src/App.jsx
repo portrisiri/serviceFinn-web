@@ -6,14 +6,13 @@ import MainNav from './components/common/MainNav';
 function App() {
   return (
     <div>
-      <MainNav />
+      <MainNav/>
 
-      <main>
-        <AppRouter/>
-      </main>
-
+    <main>
+      <AppRouter/>
+    </main>
     </div>
-  );
+  )
 }
 
 export default App;

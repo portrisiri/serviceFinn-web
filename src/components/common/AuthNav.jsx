@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+
 // import { useAuth, useUser, UserButton } from '@clerk/clerk-react'
 
 
@@ -12,6 +13,7 @@ import {
   UserButton,
   SignUpButton,
 } from "@clerk/clerk-react"
+import Logout from './Logout';
 
 function AuthNav() {
   const { isLoaded, isSignedIn } = useAuth();
@@ -36,9 +38,7 @@ function AuthNav() {
         mode='modal'
         className="btn px-4 py-2 bg-[#0470EF] text-white text-[16px] rounded-md hover:bg-[#10B981] transition"
         />
-        {/* <Link to="/sign-in"
-          className="btn px-4 py-2 bg-[#0470EF] text-white rounded-md hover:bg-[#10B981] transition"
-        >Login</Link> */}
+
       </div>
     );
   }
@@ -55,7 +55,7 @@ function AuthNav() {
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn m-0 btn-circle bg-inherit border-0 btn-sm">
             <div className='w-8 h-8 rounded-full bg-[#2B293D] overflow-hidden'>
-              <img src={user?.imageUrl} alt="Profile" className="w-full h-full object-cover" />
+              <img src={user?.imageUrl || '/default-avatar.png'} alt="Profile" className="w-full h-full object-cover" />
             </div>
             <p className='text-[10px] text-white'>Profile</p>
           </div>
@@ -65,7 +65,7 @@ function AuthNav() {
             <li><Link to='/admin/dashboard'>Dashboard</Link></li>
             <div className="divider my-0"></div>
             <li>
-              <UserButton afterSignOutUrl="/" />
+              <UserButton />
             </li>
           </ul>
         </div>
@@ -75,22 +75,32 @@ function AuthNav() {
 
   // สำหรับ User ทั่วไป
   return (
-    <div className="flex items-center justify-end mr-16 gap-5 text-white ">
+    <div className="flex items-center justify-end gap-1 text-white ml-6 ">
      
+     <div className='flex flex-col'>
+            <p className='text-black text-sm font-bold'> {user.firstName}</p>
+            <span className='text-gray-600 text-[11px] ml-6'>user</span>
+     </div>
+
       <div className="dropdown dropdown-end">
-        <div tabIndex={0} role="button" className="btn m-0 btn-circle bg-inherit border-0 btn-sm">
-          <div className='w-8 h-8 rounded-full bg-[#2B293D] overflow-hidden'>
-            <img src={user?.imageUrl} alt="Profile" className="w-full h-full object-cover" />
+        <div tabIndex={0} role="button" className="btn m-0 btn-circle bg-inherit border-0 btn-xl">
+          <div className='w-13 h-13 rounded-full border-2 border-green-500 bg-[#2B293D] overflow-hidden'>
+            <img src={user?.imageUrl || '/default-avatar.png'} alt="Profile" className="w-full h-full object-cover" />
           </div>
-          <p className='text-[10px] text-white'>Profile</p>
         </div>
         <ul tabIndex={0} className="dropdown-content menu bg-[#FFE047] text-[#2B293D] rounded-box z-[1] w-52 p-2 shadow">
-          <li><Link to='/user/userInfo'>Profile</Link></li>
-          <li><Link to='/user/user-events'>My Events</Link></li>
-          <li><Link to='/user/host-control'>Host Control</Link></li>
+          <li
+          className='btn-lg'
+          ><Link to='*'><UserButton/></Link></li>
+          <li><Link to='*'>Profile</Link></li>
+          <li><Link to='*'>Create Shop</Link></li>
+          <li><Link to='*'>Booking Management</Link></li>
+          <li><Link to='*'>Review Shop</Link></li>
           <div className="divider my-0"></div>
-          <li>
-            <UserButton afterSignOutUrl="/" />
+          <li
+          className='mx-auto'
+          >
+            <Logout/>
           </li>
         </ul>
       </div>

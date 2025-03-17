@@ -12,6 +12,12 @@ import ProfileUser from '../pages/user/ProfileUser';
 import LayoutProvider from '../layouts/LayoutProvider';
 import DashboardProvider from '../pages/provider/DashboardProvider';
 import MapSearch from '../pages/common/MapSearch';
+import ProvidersList from "../components/admin/ProviderList";
+import DashboardAdmin from "../pages/admin/DashboardAdmin";
+import LayoutAdmin from "../layouts/LayoutAdmin";
+import UserManage from "../pages/admin/UserManage";
+import ProviderManage from "../pages/admin/ProviderManage";
+import OrderManage from "../pages/admin/OrderManage";
 
 function AppRouter() {
   return (
@@ -41,10 +47,19 @@ function AppRouter() {
             <Route index element={<DashboardProvider />} />
           </Route>
 
-        </Routes>
+  
 
+        {/* AUTHENTICATE */}
+        <Route path="/admin" element={<LayoutAdmin />}>
+          <Route index element={<DashboardAdmin />} />
+          <Route path="/admin/users" element={<UserManage />} />
+          <Route path="/admin/providers" element={<ProviderManage />} />
+          <Route path="/admin/orders" element={<OrderManage />} />
+          <Route path="history" element={<Services />} />
+        </Route>
+      </Routes>
     </>
-  )
+  );
 }
 
 export default AppRouter;

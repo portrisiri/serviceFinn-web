@@ -1,8 +1,13 @@
 import React from 'react'
+import SidebarProvider from '../components/provider/SidebarProvider'
+
 
 function LayoutProvider() {
   return (
-    <div>LayoutProvider</div>
+    <div>
+      <SidebarProvider/>
+     
+    </div>
   )
 }
 

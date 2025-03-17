@@ -4,7 +4,7 @@ import { Navigate } from "react-router";
 const ProtectedRoute = ({ el }) => {
     const { isSignedIn, isLoaded } = useAuth();
   
-    if (!isLoaded) return <div>กำลังโหลด...</div>;
+    if (!isLoaded) return <div>Loading...</div>;
     
     if (!isSignedIn) {
       return <Navigate to="/sign-in" />;

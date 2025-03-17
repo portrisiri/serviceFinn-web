@@ -2,7 +2,7 @@ import React from 'react'
 
 function ProfileUser() {
   return (
-    <di>ProfileUser</di>
+    <div>ProfileUser</div>
   )
 }
 

@@ -5,22 +5,34 @@ import Howitworks from './Howitworks';
 import Nearby from './Nearby';
 import Searchbar from './Searchbar';
 import Footer from './Footer';
+import TopRateProvider from './TopRateProvider';
+import JoinProvider from './JoinProvider';
+import DocsProvider from './DocsProvider';
 
 function HomeSections() {
   return (
     <div>
     
-      <section id='first' className="scroll-mt-20 p-10">
+      <section id='first' className="scroll-mt-20 p-5 max-w-full max-h-full object-cover">
         <Searchbar/>
       </section>
-      <section id='second' className='scroll-mt-20 p-10 bg-sky-300 h-80'>
+      <section id='second' className='scroll-mt-20 p-10  h-80'>
         <Categories/>
       </section>
-      <section id='third' className='scroll-mt-20 p-10 bg-sky-500 h-80'>
+      <section id='third' className='scroll-mt-20 p-10 bg-white'>
         <Howitworks/>
       </section>
-      <section id='forth' className='scroll-mt-20 p-10 bg-sky-700 h-80'>
+      <section id='forth' className='scroll-mt-20 p-10 h-full'>
         <Nearby/>
+      </section>
+      <section id='fifth' className='scroll-mt-20 p-10 h-full'>
+        <TopRateProvider/>
+      </section>
+      <section id='sixth' className='scroll-mt-20 p-10 h-full'>
+      <JoinProvider/>
+      </section>
+      <section id='seventh' className='scroll-mt-20 p-10 h-full bg-[#E0E0E0]'>
+      <DocsProvider/>
       </section>
       <Footer/>
     </div>

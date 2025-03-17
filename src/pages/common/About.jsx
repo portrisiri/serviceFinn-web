@@ -1,8 +1,15 @@
 import React from 'react'
+import JobStatus from '../../components/admin/JobStatus'
+import SidebarAdmin from '../../components/admin/SidebarAdmin'
 
 function About() {
   return (
-    <div>About</div>
+    <>
+      <div className='flex'>
+        <SidebarAdmin /> 
+        <JobStatus />
+      </div> 
+    </>
   )
 }
 

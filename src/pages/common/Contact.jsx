@@ -1,13 +1,23 @@
-import React from "react";
-import DashboardProvider from "../provider/DashboardProvider";
+
+import React from 'react'
+import SidebarProvider from '../../components/provider/SidebarProvider'
+import ReviewForm from '../../components/admin/ReviewForm'
 
 function Contact() {
   return (
-    <div>
+    <>
+    <div className='flex'>
+        <SidebarProvider /> 
+        <ReviewForm />
+        
+      </div>
+       <div>
       Contact
       <DashboardProvider />
     </div>
-  );
+    </>
+  )
+
 }
 
 export default Contact;

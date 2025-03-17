@@ -6,7 +6,11 @@ import SidebarProvider from "../../components/provider/SidebarProvider";
 function Home() {
   return (
     <div>
+<<<<<<< HEAD
+      <HomeSections/>
+=======
       <HomeSections />
+>>>>>>> dev
     </div>
   );
 }

@@ -1,74 +1,40 @@
-import React from "react";
-import { Link } from "react-router";
-import { RxDashboard } from "react-icons/rx";
-import { FaRegUser } from "react-icons/fa";
-import { GrUserWorker } from "react-icons/gr";
-import { MdOutlineWorkOutline } from "react-icons/md";
-import { GrHistory } from "react-icons/gr";
-import { MdLogout } from "react-icons/md";
+
+import React from 'react'
+import { Link, Links } from 'react-router'
+
 
 function SidebarAdmin() {
   return (
-    <div>
-      <div className="contentMain flex">
-        <div className="sidebarWrapper">
-          <div className="sidebar fixed top-0 left-0  mt-[85px]  w-[16%] h-full botder-r border-[rgba(0,0,0,0.1) py-2 px-2 shadow">
-            <div className="py-2 w-full">
-              <Link to="/">
-                <img
-                  src="https://gingersauce.co/wp-content/uploads/2020/12/pasted-image-0-2-3.png"
-                  alt=""
-                  className="mb-5 h-[50px]"
-                />
-              </Link>
-            </div>
-
-            <ul className="">
-              <li>
-                <Link
-                  to=""
-                  className="btn btn-ghost !w-full !capitalize flex justify-start text-[14px]  font-[500]"
-                >
-                  <RxDashboard className="text-[18px]" />
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link to='/admin/users' className="btn btn-ghost !w-full !capitalize flex justify-start text-[14px]  font-[500]">
-                  <FaRegUser className="text-[18px]" />
-                  Users
-                </Link>
-              </li>
-              <li>
-                <Link to='/admin/providers' className="btn btn-ghost !w-full !capitalize flex justify-start text-[14px]  font-[500]">
-                  <GrUserWorker className="text-[18px]" />
-                  Providers
-                </Link>
-              </li>
-              <li>
-                <Link to='/admin/orders' className="btn btn-ghost !w-full !capitalize flex justify-start text-[14px]  font-[500]">
-                  <MdOutlineWorkOutline className="text-[18px]" />
-                  Orders
-                </Link>
-              </li>
-              <li>
-                <Link to='/admin/history' className="btn btn-ghost !w-full !capitalize flex justify-start text-[14px]  font-[500]">
-                  <GrHistory className="text-[18px]" />
-                  History
-                </Link>
-              </li>
-              <li>
-                <Link to='' className="btn btn-ghost !w-full !capitalize flex justify-start text-[14px]  font-[500]">
-                  <MdLogout className="text-[18px]" />
-                  Logout
-                </Link>
-              </li>
-            </ul>
+    <>
+      <div className='flex-col h-screen w-60 mx-0 bg-indigo-900 '><br />
+        <img src="public/user-round.png" alt="Dashboard icon" className=" w-8 h-8 filter invert my-2 mx-18" />
+        <div className='text-center text-white'>Admin</div>
+        <div className='flex'>
+          <div className="mx-0 my-10 gap-1 text-white">
+            <div className='flex gap-1  hover:bg-blue-800 hover:duration-300'><img src="public/book-open-text.png" alt="Dashboard icon" className=" w-6 h-6 filter invert" /><p>All User Profile</p></div>
+            <div className='flex gap-1  hover:bg-blue-800 hover:duration-300'><img src="public/book-open-text.png" alt="Dashboard icon" className=" w-6 h-6 filter invert" /><p>Shop Management</p></div>
+            <div className='flex gap-1  hover:bg-blue-800 hover:duration-300'><img src="public/book-open-text.png" alt="Dashboard icon" className=" w-6 h-6 filter invert" /><p>Dashboard</p></div>
+            {/* {links.map((item)=>{
+        return (
+          <div key={item.label}>
+            <Link
+              className="flex py-2 px-4 gap-2
+        hover:bg-[#FFE047] hover:duration-300
+        "
+              to={item.link}
+            >
+              {item.icon}
+              <p>{item.label}</p>
+            </Link>
+          </div>
+        )
+      })} */}
           </div>
         </div>
       </div>
-    </div>
-  );
+    </>
+  )
 }
 
-export default SidebarAdmin;
+
+export default SidebarAdmin

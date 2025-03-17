@@ -7,7 +7,6 @@ function App() {
   return (
     <div>
       <MainNav/>
-
     <main>
       <AppRouter/>
     </main>

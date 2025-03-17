@@ -1,9 +1,26 @@
-import React from 'react'
+import React from "react";
+import ChartDashboard from "../../components/admin/ChartDashboard";
+import ProviderTable from "../../components/admin/ProviderTable";
+import RadialBarChart from "../../components/admin/RadialBarChart";
+import Dashboard from "../../components/admin/DashBoard";
 
 function DashboardAdmin() {
   return (
-    <div>DashboardAdmin</div>
-  )
+    <div className="ml-[18%] my-5 ">
+      <div className="rounded-4xl shadow">
+        <Dashboard />
+        <div className="flex bg-gray-100 p-3 gap-3 rounded-2xl ml-6">
+          <div className="bg-white rounded-4xl p-6 shadow">
+            <ChartDashboard />
+          </div>
+          <div className="bg-white rounded-4xl shadow">
+            <RadialBarChart />
+          </div>
+        </div>
+        <ProviderTable />
+      </div>
+    </div>
+  );
 }
 
-export default DashboardAdmin
+export default DashboardAdmin;

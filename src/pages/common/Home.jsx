@@ -6,7 +6,6 @@ import Searchbar from '../../components/common/Searchbar'
 function Home() {
   return (
     <div>
-
       <HomeSections/>
     </div>
   )

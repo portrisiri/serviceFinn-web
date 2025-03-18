@@ -18,45 +18,61 @@ import LayoutAdmin from "../layouts/LayoutAdmin";
 import UserManage from "../pages/admin/UserManage";
 import ProviderManage from "../pages/admin/ProviderManage";
 import OrderManage from "../pages/admin/OrderManage";
-
+import NotFound from '../pages/common/NotFound';
+import ReviewForm from '../components/admin/ReviewForm';
+import JobStatus from '../components/admin/JobStatus';
+import DocsPreview from '../pages/common/DocsPreview';
 function AppRouter() {
   return (
     <>
-     
-        <Routes>
 
-          {/* GUEST / common */}
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="services" element={<Services />} />
-            <Route path="map-search" element={<MapSearch />} />
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
-          </Route>
-          
-           {/* Private USER */}
-           <Route path="user" element={<LayoutUser />}>
-            <Route path="profile" element={<ProfileUser/>} />
-          </Route>
+      <Routes>
 
-           {/* Private PROVIDER */}
-           <Route
-            path="provider"
-            element={<ProtectedRoute el={<LayoutProvider />} />}
-          >
-            <Route index element={<DashboardProvider />} />
-          </Route>
+        {/* GUEST / common */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="services" element={<Services />} />
+          <Route path="map-search" element={<MapSearch />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="docs-preview" element={<DocsPreview/>} />
+        </Route>
 
-  
+        {/* Private USER */}
+        <Route path="user" element={<LayoutUser />}>
+          <Route index element={<Home />} />
+          <Route path="profile" element={<ProfileUser />} />
+          <Route path="booking-management" element={<JobStatus/>} />
+          <Route path="review-shop" element={<ReviewForm/>} />
+        </Route>
 
-        {/* AUTHENTICATE */}
-        <Route path="/admin" element={<LayoutAdmin />}>
+        {/* Private PROVIDER */}
+        <Route
+          path="provider"
+          element={<ProtectedRoute el={<LayoutProvider />} />}
+        >
+          <Route index element={<DashboardProvider />} />
+          <Route path="profile" element={<ProfileUser />} />
+          <Route path="booking-management" element={<JobStatus/>} />
+          <Route path="review-shop" element={<ReviewForm/>} />
+
+        </Route>
+
+
+
+        {/* ADMIN */}
+        <Route path="admin" element={<LayoutAdmin />}>
           <Route index element={<DashboardAdmin />} />
-          <Route path="/admin/users" element={<UserManage />} />
-          <Route path="/admin/providers" element={<ProviderManage />} />
-          <Route path="/admin/orders" element={<OrderManage />} />
+          <Route path="users" element={<UserManage />} />
+          <Route path="providers" element={<ProviderManage />} />
+          <Route path="orders" element={<OrderManage />} />
           <Route path="history" element={<Services />} />
         </Route>
+
+
+      {/* OTHERS */}
+      <Route path='*' element={<NotFound/>}/>
+
       </Routes>
     </>
   );

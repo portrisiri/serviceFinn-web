@@ -1,17 +1,24 @@
 
-import React from "react";
-import HeaderAdmin from "../components/admin/HeaderAdmin";
 import SidebarAdmin from "../components/admin/SidebarAdmin";
 import { Outlet } from "react-router";
 
 
 function LayoutAdmin() {
   return (
-    <div>
+  
+    <div className="flex h-[100vh]">
+    <SidebarAdmin 
+    />
 
-      {/* <HeaderAdmin /> */}
-      <SidebarAdmin />
-      <Outlet/>
+    
+
+    <div
+        className='mx-auto overflow-scroll'>
+     
+<Outlet />
+
+        
+    </div>
     </div>
   );
 

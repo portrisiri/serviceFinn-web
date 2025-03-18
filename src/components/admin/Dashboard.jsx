@@ -7,7 +7,7 @@ function Dashboard() {
   return (
     <div>
       <div className="p-6">
-        <h1 className="text-[42px] mb-10 font-bold">Over view</h1>
+        <h1 className="text-2xl mb-10 font-bold">Over view</h1>
         <div className="mt-4">
           {/* <button className="btn btn-outline">sdfg</button> */}
           <div className="bg-gray-100 p-3 rounded-2xl">

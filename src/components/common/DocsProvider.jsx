@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 function DocsProvider() {
   return (
@@ -17,7 +18,10 @@ function DocsProvider() {
         <p>booking, and grow your business</p>
   </div>
   
-  <button className='btn bg-[#0470EF] text-white font-extralight'>Document Preview</button>
+  <button className='btn bg-[#0470EF] text-white font-extralight'>
+  <Link to='/docs-preview'>Document Preview</Link>
+  </button>
+  
     </div>
   
       </div>

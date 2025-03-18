@@ -4,7 +4,7 @@ import ProviderTable from "../../components/admin/ProviderTable";
 function ProviderManage() {
   return (
     <div>
-      <div className="ml-[18%] my-5">
+      <div className="my-5">
         <ProviderTable />
       </div>
     </div>

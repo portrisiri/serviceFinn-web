@@ -16,10 +16,10 @@ function HomeSections() {
       <section id='first' className="scroll-mt-20 p-5 max-w-full max-h-full object-cover">
         <Searchbar/>
       </section>
-      <section id='second' className='scroll-mt-20 p-10  h-80'>
+      <section id='second' className='scroll-mt-20 p-10  h-full'>
         <Categories/>
       </section>
-      <section id='third' className='scroll-mt-20 p-10 bg-white'>
+      <section id='third' className='scroll-mt-20 p-10 bg-white pb-6'>
         <Howitworks/>
       </section>
       <section id='forth' className='scroll-mt-20 p-10 h-full'>

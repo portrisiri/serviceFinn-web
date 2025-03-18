@@ -28,7 +28,7 @@ const ServiceCard = ({ name, emoji }) => {
 
 const Categories = () => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 ">
+    <div className="grid grid-cols-2 md:grid-cols-7 gap-4 p-4 ">
       {services.map((service) => (
         <ServiceCard key={service.name} name={service.name} emoji={service.emoji} />
       ))}

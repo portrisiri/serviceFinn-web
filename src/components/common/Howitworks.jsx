@@ -29,7 +29,7 @@ function Howitworks() {
   ];
 
   return (
-    <div className="bg-[#F8F8F8] p-8 rounded-lg shadow-md text-center">
+    <div className="bg-[#F8F8F8] p-8 py-14 rounded-lg shadow-md text-center">
       <h2 className="text-2xl font-bold mb-6">How It Works</h2>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {steps.map((step) => (

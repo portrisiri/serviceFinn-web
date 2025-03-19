@@ -6,10 +6,10 @@ import Dashboard from "../../components/admin/DashBoard";
 
 function DashboardAdmin() {
   return (
-    <div className="ml-[18%] my-5 ">
+    <div className="my-5 max-w-7xl">
       <div className="rounded-4xl shadow">
         <Dashboard />
-        <div className="flex bg-gray-100 p-3 gap-3 rounded-2xl ml-6">
+        <div className="flex bg-gray-100 p-3 gap-3 rounded-2xl">
           <div className="bg-white rounded-4xl p-6 shadow">
             <ChartDashboard />
           </div>

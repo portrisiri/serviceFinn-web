@@ -11,10 +11,12 @@ import {
   SignInButton,
   UserButton,
   SignUpButton,
+  SignIn,
+  SignUp
 } from "@clerk/clerk-react"
 
 function AuthNav() {
-  const { isLoaded, isSignedIn } = useAuth();
+  const { isLoaded, isSignedIn,  } = useAuth();
   const { user } = useUser();
   
 
@@ -27,9 +29,11 @@ function AuthNav() {
   if (!isSignedIn) {
     return (
       <div className="space-x-3 my-auto">
+
         <SignUpButton
         mode='modal'
         className="btn px-4 py-2 border border-[#0470EF] text-[#0470EF] text-[16px] rounded-md hover:bg-[#F1C40F] hover:text-white transition"
+        forceRedirectUrl={'/registeruser'}
         />
 
         <SignInButton
@@ -39,6 +43,11 @@ function AuthNav() {
         {/* <Link to="/sign-in"
           className="btn px-4 py-2 bg-[#0470EF] text-white rounded-md hover:bg-[#10B981] transition"
         >Login</Link> */}
+
+        {/* TESTING CLERK USERBUTTON */}
+        <UserButton afterSignOutUrl='/login'/> 
+
+
       </div>
     );
   }
@@ -65,7 +74,8 @@ function AuthNav() {
             <li><Link to='/admin/dashboard'>Dashboard</Link></li>
             <div className="divider my-0"></div>
             <li>
-              <UserButton afterSignOutUrl="/" />
+              {/* KAAAAAANNNNGGG  */}
+              <UserButton afterSignOutUrl="/login" />
             </li>
           </ul>
         </div>
@@ -76,6 +86,7 @@ function AuthNav() {
   // สำหรับ User ทั่วไป
   return (
     <div className="flex items-center justify-end mr-16 gap-5 text-white ">
+            <UserButton className='w-[24px] h-[24px]' afterSignOutUrl="/" />
      
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn m-0 btn-circle bg-inherit border-0 btn-sm">
@@ -89,9 +100,8 @@ function AuthNav() {
           <li><Link to='/user/user-events'>My Events</Link></li>
           <li><Link to='/user/host-control'>Host Control</Link></li>
           <div className="divider my-0"></div>
-          <li>
-            <UserButton afterSignOutUrl="/" />
-          </li>
+          {/* <li> */}
+          {/* </li> */}
         </ul>
       </div>
     </div>

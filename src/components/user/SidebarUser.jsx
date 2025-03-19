@@ -1,6 +1,26 @@
 import React from 'react'
 
+import { useUser, useAuth } from "@clerk/clerk-react";
+import { useEffect } from "react"
+
 function SidebarUser() {
+
+  const { getToken, isSignedIn } = useAuth()
+  const token = getToken()
+  const user = useUser()
+
+  useEffect(() => {
+    getToken()
+      .then((token) => {
+        console.log(token); // Log the resolved token value
+      })
+      .catch((error) => {
+        console.error("Error getting token:", error);
+      });
+  }, [getToken])
+  
+  console.log(user)
+
   return (
     <>
     <div className='flex-col h-screen w-60 mx-0 bg-indigo-900 '><br />

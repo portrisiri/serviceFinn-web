@@ -19,6 +19,17 @@ import UserManage from "../pages/admin/UserManage";
 import ProviderManage from "../pages/admin/ProviderManage";
 import OrderManage from "../pages/admin/OrderManage";
 
+import UserLogin from '../pages/auth/UserLogin';
+import UserSignup from '../pages/auth/UserSignup';
+import UserRegister from '../pages/auth/UserRegister';
+import { SignedIn, SignedOut } from '@clerk/clerk-react';
+
+import ProviderLogin from '../pages/auth/ProviderLogin';
+import ProviderSignUp from '../pages/auth/ProviderSignUp';
+import ProviderRegister from '../pages/auth/ProviderRegister';
+
+
+
 function AppRouter() {
   return (
     <>
@@ -26,8 +37,19 @@ function AppRouter() {
         <Routes>
 
           {/* GUEST / common */}
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<> <SignedOut/> <Layout /> </>}>
             <Route index element={<Home />} />
+
+            <Route path="login" element={<UserLogin />} />
+            <Route path="signupuser" element={<UserSignup />} />
+            <Route path="registeruser" element={<UserRegister />} />
+
+
+            <Route path="loginprovider" element={<ProviderLogin />} />
+            <Route path="signupprovider" element={<ProviderSignUp />} />
+            <Route path="registerprovider" element={<ProviderRegister />} />
+            
+
             <Route path="services" element={<Services />} />
             <Route path="map-search" element={<MapSearch />} />
             <Route path="about" element={<About />} />
@@ -35,15 +57,13 @@ function AppRouter() {
           </Route>
           
            {/* Private USER */}
-           <Route path="user" element={<LayoutUser />}>
+           <Route path="user" element={<> <SignedIn> <LayoutUser /> </SignedIn> </>}>
             <Route path="profile" element={<ProfileUser/>} />
           </Route>
-
+          
            {/* Private PROVIDER */}
-           <Route
-            path="provider"
-            element={<ProtectedRoute el={<LayoutProvider />} />}
-          >
+           <Route path="provider"
+            element={<>  <SignedIn> <LayoutProvider /> </SignedIn> </>}>
             <Route index element={<DashboardProvider />} />
           </Route>
 

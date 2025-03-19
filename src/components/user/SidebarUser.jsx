@@ -1,7 +1,6 @@
 
 import React from 'react'
 import { Link, Links } from 'react-router'
-import { useUser } from '@clerk/clerk-react'
 import { User } from 'lucide-react';
 import { userSidebarLink } from '../../utils/links';
 
@@ -10,10 +9,9 @@ import { useEffect } from "react"
 
 function SidebarUser() {
 
-<<<<<<< HEAD
   const { getToken, isSignedIn } = useAuth()
   const token = getToken()
-  const user = useUser()
+  // const user = useUser()
 
   useEffect(() => {
     getToken()
@@ -26,13 +24,11 @@ function SidebarUser() {
   }, [getToken])
   
   console.log(user)
-=======
   const { user, isLoaded } = useUser();
 
   if (!isLoaded) {
     return <div className="flex items-center justify-center">Loading...</div>;
   }
->>>>>>> dev
 
   return (
     <>

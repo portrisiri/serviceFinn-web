@@ -1,17 +1,17 @@
 
 import React from 'react'
 import { Link, Links } from 'react-router'
-import { User } from 'lucide-react';
+import { UserIcon } from 'lucide-react';
 import { userSidebarLink } from '../../utils/links';
 
-import { useUser, useAuth } from "@clerk/clerk-react";
+import { useUser, useAuth, UserProfile, } from "@clerk/clerk-react";
 import { useEffect } from "react"
 
 function SidebarUser() {
 
   const { getToken, isSignedIn } = useAuth()
   const token = getToken()
-  // const user = useUser()
+  const user = useUser()
 
   useEffect(() => {
     getToken()
@@ -24,7 +24,7 @@ function SidebarUser() {
   }, [getToken])
   
   console.log(user)
-  const { user, isLoaded } = useUser();
+  const { isLoaded } = useUser();
 
   if (!isLoaded) {
     return <div className="flex items-center justify-center">Loading...</div>;
@@ -35,13 +35,14 @@ function SidebarUser() {
       <div className='flex flex-col w-60 bg-[#0470EF]'>
          {/* Profile */}
       <div className="flex flex-col items-center my-12 gap-2">
-        <User size={48} />
-        <p>Admin</p>
+        <UserIcon size={48} />
+        <p> USER </p>
         <div className='badge badge-ghost'>
           {user.firstName}
           </div>
       </div>
       {/* /Profile */}
+      
 
       {/* Navlinks */}
       {userSidebarLink.map((item) => {

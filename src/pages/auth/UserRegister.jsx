@@ -15,27 +15,27 @@ function UserRegister() {
   const { getToken, isSigndIn } = useAuth()
   const user = useUser();
   
-  console.log(user)
-  console.log(user.user.firstName)
+  // console.log(user)
+  // console.log(user.user.firstName)
   
   const navigate = useNavigate();
   
-  useEffect(() => {
-    if (user) {
-      if (user.user.firstName) {
-        setValue("firstName", user.user.firstName);
-      }
-      if (user.user.lastName) {
-        setValue("lastName", user.user.lastName);
-      }
-      if (user.user.primaryEmailAddress?.emailAddress) {
-        setValue("email", user.user.primaryEmailAddress.emailAddress);
-      }
-      if (user.user.primaryPhoneNumber?.phoneNumber) {
-        setValue("phone", user.user.primaryPhoneNumber.phoneNumber);
-      }
-    }
-  }, [user,setValue]);
+  // useEffect(() => {
+  //   if (user?.user) {
+  //     if (user.user.firstName) {
+  //       setValue("firstName", user.user.firstName);
+  //     }
+  //     if (user.user.lastName) {
+  //       setValue("lastName", user.user.lastName);
+  //     }
+  //     if (user.user.primaryEmailAddress?.emailAddress) {
+  //       setValue("email", user.user.primaryEmailAddress.emailAddress);
+  //     }
+  //     if (user.user.primaryPhoneNumber?.phoneNumber) {
+  //       setValue("phone", user.user.primaryPhoneNumber.phoneNumber);
+  //     }
+  //   }
+  // }, [user,setValue]);
   
   const onSubmit = async (data) => {
     try {
@@ -66,7 +66,7 @@ function UserRegister() {
       console.log("API Response:", response.data);
       user.user.reload()
       
-       navigate("/"); // redirect to home page or another page.
+       navigate("/user/profile"); // redirect to home page or another page.
     } catch (error) {
       console.error("API Error:", error);
       // Handle error (e.g., show an error message)

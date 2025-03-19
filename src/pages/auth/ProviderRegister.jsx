@@ -24,14 +24,14 @@ function ProviderRegister() {
         setValue,
     } = useForm();
 
-    // useEffect(() => {
-    //     if (user) {
-    //         setValue('firstName', user.firstName || '');
-    //         setValue('lastName', user.lastName || '');
-    //         setValue('email', user.primaryEmailAddress?.emailAddress || '');
-    //         setValue('phone', user.primaryPhoneNumber?.phoneNumber || '');
-    //     }
-    // }, [user, setValue]); // Add setValue to the dependency array
+    useEffect(() => {
+        if (user) {
+            setValue('firstName', user.firstName || '');
+            setValue('lastName', user.lastName || '');
+            setValue('email', user.primaryEmailAddress?.emailAddress || '');
+            setValue('phone', user.primaryPhoneNumber?.phoneNumber || '');
+        }
+    }, [user, setValue]); // Add setValue to the dependency array
 
 
     const handleNext = (data) => {
@@ -365,7 +365,7 @@ function ProviderStep4({ register, handleSubmit, errors, onPrev, watch }) {
         try {
             const formData = {
                 ...data,
-                userId: user.id, // Pass Clerk user ID
+                clerkID: user.id, // Pass Clerk user ID
                 latitude: 10.0, // example latitude, add your latitude and longitude form field.
                 longtitude: 100.0, // example longitude, add your latitude and longitude form field.
             };
@@ -373,7 +373,7 @@ function ProviderStep4({ register, handleSubmit, errors, onPrev, watch }) {
             alert('Provider registered successfully!');
 
             user.reload()
-            navigate("/")
+            navigate("/provider")
 
         } catch (error) {
             alert('Error registering provider. Please try again.');

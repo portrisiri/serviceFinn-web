@@ -1,8 +1,11 @@
 import React from 'react'
+import { UserProfile} from '@clerk/clerk-react'
 
 function ProfileUser() {
   return (
-    <div>ProfileUser</div>
+    <div>
+      <UserProfile />
+    </div>
   )
 }
 

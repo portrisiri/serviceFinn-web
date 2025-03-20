@@ -1,6 +1,6 @@
 
-import React from 'react'
-import { Route, Routes } from 'react-router-dom';
+import React, {useEffect} from 'react'
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Layout from '../layouts/Layout';
 import Home from '../pages/common/Home';
 import Services from '../pages/common/Services';
@@ -18,50 +18,68 @@ import LayoutAdmin from "../layouts/LayoutAdmin";
 import UserManage from "../pages/admin/UserManage";
 import ProviderManage from "../pages/admin/ProviderManage";
 import OrderManage from "../pages/admin/OrderManage";
+
+import UserLogin from '../pages/auth/UserLogin';
+import UserSignup from '../pages/auth/UserSignup';
+import UserRegister from '../pages/auth/UserRegister';
+import { SignedIn, SignedOut, useUser } from '@clerk/clerk-react';
+
+import ProviderLogin from '../pages/auth/ProviderLogin';
+import ProviderSignUp from '../pages/auth/ProviderSignUp';
+import ProviderRegister from '../pages/auth/ProviderRegister';
+
+
+
 import NotFound from '../pages/common/NotFound';
 import ReviewForm from '../components/admin/ReviewForm';
 import JobStatus from '../components/admin/JobStatus';
 import DocsPreview from '../pages/common/DocsPreview';
+
+
 function AppRouter() {
+
   return (
     <>
+        <Routes>
+          {/* GUEST / common */}
+          <Route path="/" element={ <Layout />}>
+            <Route index element={<Home />} />
 
-      <Routes>
+            <Route path="login" element={<UserLogin />} />
+            <Route path="signupuser" element={<UserSignup />} />
+            <Route path="registeruser" element={<UserRegister />} />
 
-        {/* GUEST / common */}
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="services" element={<Services />} />
-          <Route path="map-search" element={<MapSearch />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="docs-preview" element={<DocsPreview/>} />
-        </Route>
 
-        {/* Private USER */}
-        <Route path="user" element={<LayoutUser />}>
-          <Route index element={<Home />} />
+            <Route path="loginprovider" element={<ProviderLogin />} />
+            <Route path="signupprovider" element={<ProviderSignUp />} />
+            <Route path="registerprovider" element={<ProviderRegister />} />
+            
+
+            <Route path="services" element={<Services />} />
+            <Route path="map-search" element={<MapSearch />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="docs-preview" element={<DocsPreview/>} />
+          </Route>
+          
+           {/* Private USER */}
+           <Route path="user" element={<SignedIn><LayoutUser /></SignedIn>}>
           <Route path="profile" element={<ProfileUser />} />
-          <Route path="booking-management" element={<JobStatus/>} />
-          <Route path="review-shop" element={<ReviewForm/>} />
-        </Route>
-
-        {/* Private PROVIDER */}
-        <Route
-          path="provider"
-          element={<ProtectedRoute el={<LayoutProvider />} />}
-        >
+            <Route path="booking-management" element={<JobStatus/>} />
+            <Route path="review-shop" element={<ReviewForm/>} />
+          </Route>
+          
+           {/* Private PROVIDER */}
+           <Route path="provider" element={<SignedIn><LayoutProvider /></SignedIn>}>
           <Route index element={<DashboardProvider />} />
-          <Route path="profile" element={<ProfileUser />} />
-          <Route path="booking-management" element={<JobStatus/>} />
-          <Route path="review-shop" element={<ReviewForm/>} />
-
-        </Route>
-
+            <Route path="profile" element={<ProfileUser />} />
+            <Route path="booking-management" element={<JobStatus/>} />
+            <Route path="review-shop" element={<ReviewForm/>} />
+          </Route>
 
 
         {/* ADMIN */}
-        <Route path="admin" element={<LayoutAdmin />}>
+        <Route path="admin" element={<SignedIn><LayoutAdmin /></SignedIn>}>
           <Route index element={<DashboardAdmin />} />
           <Route path="users" element={<UserManage />} />
           <Route path="providers" element={<ProviderManage />} />
@@ -74,8 +92,35 @@ function AppRouter() {
       <Route path='*' element={<NotFound/>}/>
 
       </Routes>
+
+      <SignedIn>
+        <PrivateRouteNavigation />
+      </SignedIn>
+
     </>
   );
+}
+
+function PrivateRouteNavigation() {
+  const { user, isLoaded } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoaded && user && user.publicMetadata) {
+      const role = user.publicMetadata.role;
+      console.log('Role inside PrivateRouteNavigation:', role);
+
+      if (role === 'USER') {
+        navigate('/user/profile');
+      } else if (role === 'PROVIDER') {
+        navigate('/provider');
+      } else if (role === 'ADMIN') {
+        navigate('/admin');
+      }
+    }
+  }, [user, isLoaded, navigate]);
+
+  return null; // อันนี้คือ protected Route 
 }
 
 export default AppRouter;

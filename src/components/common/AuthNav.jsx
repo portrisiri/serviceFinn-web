@@ -12,11 +12,13 @@ import {
   SignInButton,
   UserButton,
   SignUpButton,
+  SignIn,
+  SignUp
 } from "@clerk/clerk-react"
 import Logout from './Logout';
 
 function AuthNav() {
-  const { isLoaded, isSignedIn } = useAuth();
+  const { isLoaded, isSignedIn,  } = useAuth();
   const { user } = useUser();
   
 
@@ -29,9 +31,11 @@ function AuthNav() {
   if (!isSignedIn) {
     return (
       <div className="space-x-3 my-auto">
+
         <SignUpButton
         mode='modal'
         className="btn px-4 py-2 border border-[#0470EF] text-[#0470EF] text-[16px] rounded-md hover:bg-[#F1C40F] hover:text-white transition"
+        forceRedirectUrl={'/registeruser'}
         />
 
         <SignInButton

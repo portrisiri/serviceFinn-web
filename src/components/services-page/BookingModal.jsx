@@ -15,6 +15,13 @@ const BookingModal = ({ isModalOpen, setIsModalOpen }) => {
           <img src="https://i.pravatar.cc/50?img=6" alt="Shop" className="w-24 h-24 rounded-full" />
         </div>
 
+        {/* Job Detail */}
+        <p className="text-sm text-gray-600 font-semibold">Job Detail:</p>
+        <textarea
+          className="w-full px-3 py-2 border rounded-md text-sm"
+          placeholder="Enter job details..."
+        ></textarea>
+
         {/* Available Times */}
         <p className="text-sm text-gray-600 font-semibold">Available Time:</p>
         <div className="flex gap-2 my-2">
@@ -23,12 +30,7 @@ const BookingModal = ({ isModalOpen, setIsModalOpen }) => {
           <button className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm">16:00</button>
         </div>
 
-        {/* Job Detail */}
-        <p className="text-sm text-gray-600 font-semibold">Job Detail:</p>
-        <textarea
-          className="w-full px-3 py-2 border rounded-md text-sm"
-          placeholder="Enter job details..."
-        ></textarea>
+
 
         {/* Buttons */}
         <div className="flex justify-end gap-2 mt-4">

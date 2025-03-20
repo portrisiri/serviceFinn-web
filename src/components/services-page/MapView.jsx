@@ -11,7 +11,7 @@ function MapView() {
 
       <Link
         to="/map-search"
-        className="absolute top-3/5  bg-white text-blue-600 px-4 py-2 text-lg font-medium rounded-lg shadow-md hover:bg-gray-100"
+        className="absolute top-3/5  bg-white text-blue-600 px-4 py-2 text-lg font-medium rounded-lg shadow-md hover:bg-gray-100 ml-2"
       >
         Show on map
       </Link>

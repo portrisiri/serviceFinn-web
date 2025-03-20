@@ -94,8 +94,10 @@ function AuthNav() {
     <div className="flex items-center justify-end gap-1 text-white ml-6 ">
      
      <div className='flex flex-col'>
-            <p className='text-black text-sm font-bold'> {user.firstName}</p>
-            <span className='text-gray-600 text-[11px] ml-6'>user</span>
+            <p className='text-white text-sm font-bold'> {user.firstName}</p>
+            <span className='text-gray-300 text-[11px] ml-6'>user</span>
+            {/* <p className='text-black text-sm font-bold'> {user.firstName}</p>
+            <span className='text-gray-600 text-[11px] ml-6'>user</span> */}
      </div>
 
       <div className="dropdown dropdown-end">

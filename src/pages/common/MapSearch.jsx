@@ -1,8 +1,11 @@
 import React from 'react'
+import MapSideBar from '../../components/common/MapSideBar'
 
 function MapSearch() {
   return (
-    <div>MapSearch</div>
+    <div>
+      <MapSideBar/>
+    </div>
   )
 }
 

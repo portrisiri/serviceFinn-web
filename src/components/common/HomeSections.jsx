@@ -8,6 +8,9 @@ import Footer from './Footer';
 import TopRateProvider from './TopRateProvider';
 import JoinProvider from './JoinProvider';
 import DocsProvider from './DocsProvider';
+import InfiniteCarousel from './Test';
+import HeroBanner from './Test';
+import BannerImages from './BannerImages';
 
 function HomeSections() {
   return (
@@ -16,7 +19,14 @@ function HomeSections() {
       <section id='first' className="scroll-mt-20 p-5 max-w-full max-h-full object-cover">
         <Searchbar/>
       </section>
-      <section id='second' className='scroll-mt-20 p-10  h-80'>
+    
+
+<div className='w-[90%] mx-auto overflow-hidden'>
+
+<HeroBanner/>
+</div>
+
+      <section id='second' className='scroll-mt-20 p-10  h-full'>
         <Categories/>
       </section>
       <section id='third' className='scroll-mt-20 p-10 bg-white'>

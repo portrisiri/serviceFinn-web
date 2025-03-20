@@ -34,8 +34,8 @@ import NotFound from '../pages/common/NotFound';
 import ReviewForm from '../components/admin/ReviewForm';
 import JobStatus from '../components/admin/JobStatus';
 import DocsPreview from '../pages/common/DocsPreview';
-
-
+import ServiceDetails from '../components/common/ServiceDetails';
+import ShopManagement from '../pages/provider/ShopManagement';
 function AppRouter() {
 
   return (
@@ -49,6 +49,16 @@ function AppRouter() {
             <Route path="signupuser" element={<UserSignup />} />
             <Route path="registeruser" element={<UserRegister />} />
 
+        {/* GUEST / common */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="services" element={<Services />} />
+          <Route path="map-search" element={<MapSearch />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="docs-preview" element={<DocsPreview/>} />
+          <Route path="service-details" element={<ServiceDetails/>} />
+        </Route>
 
             <Route path="loginprovider" element={<ProviderLogin />} />
             <Route path="signupprovider" element={<ProviderSignUp />} />
@@ -72,10 +82,13 @@ function AppRouter() {
            {/* Private PROVIDER */}
            <Route path="provider" element={<SignedIn><LayoutProvider /></SignedIn>}>
           <Route index element={<DashboardProvider />} />
-            <Route path="profile" element={<ProfileUser />} />
-            <Route path="booking-management" element={<JobStatus/>} />
-            <Route path="review-shop" element={<ReviewForm/>} />
-          </Route>
+          <Route path="profile" element={<ProfileUser />} />
+          <Route path="shop-management" element={<ShopManagement/>} />
+          <Route path="booking-management" element={<JobStatus/>} />
+          <Route path="review-shop" element={<ReviewForm/>} />
+
+        </Route>
+
 
 
         {/* ADMIN */}

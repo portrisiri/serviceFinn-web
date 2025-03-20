@@ -88,10 +88,10 @@ export default function ServiceNearby() {
             alt="Map"
             className="w-full rounded-4xl shadow"
             /> */}
-            <button className="btn btn-info flex mx-auto mt-52 ">
+            <button className="flex mx-auto mt-52">
             <Link
                     to="/map-search"
-                    className=" bg-white text-blue-600 px-4 py-2 text-lg font-medium rounded-lg shadow-md hover:bg-gray-100 w-full"
+                    className=" bg-white text-blue-600 px-4 py-2 text-lg font-medium rounded-lg shadow-md hover:bg-gray-100 w-fit"
                   >
                     Show on map
                   </Link>

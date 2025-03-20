@@ -17,6 +17,7 @@ export const adminSidebarLink = [
 export const providerSidebarLink = [
     { label: "Dashboard", link: "/provider", icon: <LayoutDashboard /> },
     { label: "Profile", link: "/provider/profile", icon: <LayoutDashboard /> },
+    { label: "Shop Management", link: "/provider/shop-management", icon: <LayoutDashboard /> },
     { label: "Orders Management", link: "/provider/booking-management", icon: <User2Icon /> },
     { label: "Reviews", link: "/provider/review-shop", icon: <User2Icon /> },
 ];

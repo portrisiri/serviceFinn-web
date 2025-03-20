@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function JoinProvider() {
   return (
@@ -14,7 +15,14 @@ function JoinProvider() {
 
       <p>Join us</p>
 
-<button className='btn bg-[#0470EF] text-white font-extralight'>Register as  Provider</button>
+{/* <button className='btn bg-[#0470EF] text-white font-extralight'>Register as  Provider</button> */}
+  
+      <Link to="/signupprovider">
+        <button className="btn bg-[#0470EF] text-white font-extralight">
+          Register as Provider
+        </button>
+      </Link>
+  
   </div>
 
     </div>

@@ -13,7 +13,7 @@ function LayoutProvider() {
     
 
     <div
-        className='mx-auto overflow-scroll'>
+        className='mx-auto'>
      
 <Outlet />
 

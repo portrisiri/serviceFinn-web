@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from "react";
 import Filter from '../../components/services-page/Filter'
 import SearchTab from '../../components/services-page/SearchTab'
 import MapView from '../../components/services-page/MapView'
@@ -9,32 +9,42 @@ import ServicesList from '../../components/services-page/ServicesList'
 const services = [
   { name: "Caring", emoji: "🍼" },
   { name: "Cleaning", emoji: "🧽" },
-  { name: "Laundry", emoji: "👕" }, 
-  { name: "Transport", emoji: "🚕" }, 
-  { name: "Fixing", emoji: "🔧" }, 
-  { name: "Pet Care", emoji: "🐾" }, 
-  { name: "Gardening", emoji: "🌿" }, 
+  { name: "Laundry", emoji: "👕" },
+  { name: "Transport", emoji: "🚕" },
+  { name: "Repair", emoji: "🔧" },
+  { name: "Pet Care", emoji: "🐾" },
+  { name: "Gardening", emoji: "🌿" },
 ];
 
 
 function Services() {
+
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Category Selection */}
-      <div className="container mx-auto p-4 flex gap-4 overflow-x-auto justify-center">
+
+<div className="container mx-auto p-4 flex gap-4 overflow-x-auto justify-center">
         {services.map((service) => (
           <button
             key={service.name}
-            className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border hover:shadow-md transition"
+            className={`flex items-center gap-2 px-4 py-2 rounded-full border shadow-sm transition ${
+              selectedCategory === service.name
+                ? "bg-blue-500 text-white"
+                : "bg-white text-gray-700 hover:shadow-md"
+            }`}
+            onClick={() => setSelectedCategory(service.name)}
           >
             <span className="text-lg">{service.emoji}</span>
             <span className="text-sm font-medium">{service.name}</span>
           </button>
         ))}
       </div>
+
     {/* Search Bar */}
     <div className="bg-white shadow-md p-4">
-      <SearchTab />
+    <SearchTab selectedCategory={selectedCategory} />
     </div>
     
     <div className="container mx-auto p-4 grid grid-cols-12 gap-6">

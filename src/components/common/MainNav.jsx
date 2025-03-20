@@ -12,19 +12,21 @@ import AuthNav from './AuthNav';
 function MainNav() {
   return (
     <>
-    <nav className=" z-50 flex items-center justify-between p-4 shadow-md bg-white sticky top-0 opacity-90">
+    <nav className=" z-50 flex items-center justify-between p-4 shadow-md bg-blue-900 sticky top-0 opacity-90">
       <div className="2/3 flex items-center">
-        <span className="text-[#0470EF] font-bold text-lg">ServiceFinn</span>
+        <span className="text-[#FFFFFF] font-bold text-lg">ServiceFinn</span>
+        {/* <span className="text-[#0470EF] font-bold text-lg">ServiceFinn</span> */}
       </div>
 
   <div className='1/3 flex gap-5'>
 
-  <div className="navbar-center hidden md:flex space-x-6 text-gray-700 items-center gap-5">
+  {/* <div className="navbar-center hidden md:flex space-x-6 text-gray-700 items-center gap-5"> */}
+  <div className="navbar-center hidden md:flex space-x-6 text-white items-center gap-5">
     <ul className="menu menu-horizontal px-1 mr-[12px] text-[16px]">
       <li>
         <details>
         <summary><Link to="/">Home</Link></summary>
-          <ul className="p-2 w-52">
+          <ul className="p-2 w-52 text-gray-700 ">
             <li><a href="#first" className="hover:text-[#0470EF]">Search</a></li>
             <li><a href="#second" className="hover:text-[#0470EF]">Categories</a></li>
             <li><a href="#third" className="hover:text-[#0470EF]">How it works</a></li>

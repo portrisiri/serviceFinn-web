@@ -33,8 +33,7 @@ function getRandomNearbyPositions(center, radiusInKm, count) {
 function MapArea() {
   const [currentPosition, setCurrentPosition] = useState(null);
   const [employees, setEmployees] = useState([]);
-  const [] = useState()
-  
+  const [] = useState();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -68,8 +67,8 @@ function MapArea() {
   // Animation
 
   return (
-    <div className="">
-      <div className="w-[70%] ml-[20%]">
+    <div className=" p-4 flex gap-4 ">
+      <div className="w-[98%] mx-auto">
         {currentPosition ? (
           <MapContainer
             center={currentPosition}

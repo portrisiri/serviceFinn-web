@@ -34,20 +34,13 @@ import NotFound from '../pages/common/NotFound';
 import ReviewForm from '../components/admin/ReviewForm';
 import JobStatus from '../components/admin/JobStatus';
 import DocsPreview from '../pages/common/DocsPreview';
-import ServiceDetails from '../components/common/ServiceDetails';
+import ServiceDetails from '../pages/common/ServiceDetails';
 import ShopManagement from '../pages/provider/ShopManagement';
 function AppRouter() {
 
   return (
     <>
         <Routes>
-          {/* GUEST / common */}
-          <Route path="/" element={ <Layout />}>
-            <Route index element={<Home />} />
-
-            <Route path="login" element={<UserLogin />} />
-            <Route path="signupuser" element={<UserSignup />} />
-            <Route path="registeruser" element={<UserRegister />} />
 
         {/* GUEST / common */}
         <Route path="/" element={<Layout />}>
@@ -58,22 +51,21 @@ function AppRouter() {
           <Route path="contact" element={<Contact />} />
           <Route path="docs-preview" element={<DocsPreview/>} />
           <Route path="service-details" element={<ServiceDetails/>} />
-        </Route>
+
+            <Route path="login" element={<UserLogin />} />
+            <Route path="signupuser" element={<UserSignup />} />
+            <Route path="registeruser" element={<UserRegister />} />
 
             <Route path="loginprovider" element={<ProviderLogin />} />
             <Route path="signupprovider" element={<ProviderSignUp />} />
             <Route path="registerprovider" element={<ProviderRegister />} />
             
+        </Route>
 
-            <Route path="services" element={<Services />} />
-            <Route path="map-search" element={<MapSearch />} />
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="docs-preview" element={<DocsPreview/>} />
-          </Route>
           
            {/* Private USER */}
            <Route path="user" element={<SignedIn><LayoutUser /></SignedIn>}>
+          <Route index element={<Home />} />
           <Route path="profile" element={<ProfileUser />} />
             <Route path="booking-management" element={<JobStatus/>} />
             <Route path="review-shop" element={<ReviewForm/>} />
@@ -81,7 +73,8 @@ function AppRouter() {
           
            {/* Private PROVIDER */}
            <Route path="provider" element={<SignedIn><LayoutProvider /></SignedIn>}>
-          <Route index element={<DashboardProvider />} />
+           <Route index element={<Home />} />
+          <Route path='dashboard-provider' element={<DashboardProvider />} />
           <Route path="profile" element={<ProfileUser />} />
           <Route path="shop-management" element={<ShopManagement/>} />
           <Route path="booking-management" element={<JobStatus/>} />
@@ -93,7 +86,8 @@ function AppRouter() {
 
         {/* ADMIN */}
         <Route path="admin" element={<SignedIn><LayoutAdmin /></SignedIn>}>
-          <Route index element={<DashboardAdmin />} />
+          <Route index element={<Home />} />
+          <Route path='dashboard-admin' element={<DashboardAdmin />} />
           <Route path="users" element={<UserManage />} />
           <Route path="providers" element={<ProviderManage />} />
           <Route path="orders" element={<OrderManage />} />

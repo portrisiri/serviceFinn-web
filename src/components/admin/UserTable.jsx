@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Pencil, Eye } from "lucide-react";
 
-function ProviderTable() {
+function UserTable() {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
@@ -137,4 +137,4 @@ function ProviderTable() {
   );
 }
 
-export default ProviderTable;
+export default UserTable;

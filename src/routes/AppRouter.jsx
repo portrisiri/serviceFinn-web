@@ -125,7 +125,7 @@ function PrivateRouteNavigation() {
         navigate('/admin');
       }
     }
-  }, [user, isLoaded, navigate]);
+  }, [user]);
 
   return null; // อันนี้คือ protected Route 
 }

@@ -15,36 +15,33 @@ import BannerImages from './BannerImages';
 function HomeSections() {
   return (
     <div>
-    
-      <section id='first' className="scroll-mt-20 p-5 max-w-full max-h-full object-cover">
-        <Searchbar/>
+      <section id="first" className="scroll-mt-20 p-5 max-w-full max-h-full object-cover">
+        <Searchbar />
       </section>
-    
 
-<div className='w-[90%] mx-auto overflow-hidden'>
+      <div className="w-[90%] mx-auto overflow-hidden">
+        <HeroBanner />
+      </div>
 
-<HeroBanner/>
-</div>
-
-      <section id='second' className='scroll-mt-20 p-10  h-full'>
-        <Categories/>
+      <section id="second" className="scroll-mt-20 p-10  h-full">
+        <Categories />
       </section>
-      <section id='third' className='scroll-mt-20 p-10 bg-white'>
-        <Howitworks/>
+      <section id="third" className="scroll-mt-20 p-10 bg-white">
+        <Howitworks />
       </section>
-      <section id='forth' className='scroll-mt-20 p-10 h-full'>
-        <Nearby/>
+      <section id="forth" className="scroll-mt-20 p-10 h-full">
+        <Nearby />
       </section>
-      <section id='fifth' className='scroll-mt-20 p-10 h-full'>
-        <TopRateProvider/>
+      <section id="fifth" className="scroll-mt-20 p-10 h-full">
+        <TopRateProvider />
       </section>
-      <section id='sixth' className='scroll-mt-20 p-10 h-full'>
-      <JoinProvider/>
+      <section id="sixth" className="scroll-mt-20 p-10 h-full">
+        <JoinProvider />
       </section>
-      <section id='seventh' className='scroll-mt-20 p-10 h-full bg-[#E0E0E0]'>
-      <DocsProvider/>
+      <section id="seventh" className="scroll-mt-20 p-10 h-full bg-[#E0E0E0]">
+        <DocsProvider />
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

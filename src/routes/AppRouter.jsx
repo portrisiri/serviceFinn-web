@@ -92,8 +92,8 @@ function AppRouter() {
           <Route path='dashboard-admin' element={<DashboardAdmin />} />
           <Route path="users" element={<UserManage />} />
           <Route path="providers" element={<ProviderManage />} />
-          <Route path="orders" element={<OrderManage />} />
-          <Route path="history" element={<Services />} />
+          {/* <Route path="orders" element={<OrderManage />} /> */}
+          {/* <Route path="history" element={<Services />} /> */}
         </Route>
 
 

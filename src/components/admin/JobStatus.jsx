@@ -1,38 +1,59 @@
-import React from 'react'
-import ProviderRequestCard from './ProviderRequestCard'
-import AppointmentCard from './AppointmentCard'
-import CompleteCard from './CompleteCard'
-import UserRequestCard from './UserRequestCard'
+import React, { useState } from "react";
+import ProviderRequestCard from "./ProviderRequestCard";
+import AppointmentCard from "./AppointmentCard";
+import CompleteCard from "./CompleteCard";
+import UserRequestCard from "./UserRequestCard";
 
 function JobStatus() {
+  const [activeTab, setActiveTab] = useState("request");
+
   return (
     <>
       <div>
-        <div className='flex '>
-          <div className='btn btn-wide '>
+        {/* Tab Buttons */}
+        <div className="flex gap-2 mb-6">
+          <button
+            onClick={() => setActiveTab("request")}
+            className={`btn btn-wide ${
+              activeTab === "request" ? "btn-primary bg-blue-700" : ""
+            }`}
+          >
             <p>Booking Request</p>
-          </div>
-          <div className='btn btn-wide'>
+          </button>
+          <button
+            onClick={() => setActiveTab("appointment")}
+            className={`btn btn-wide ${
+              activeTab === "appointment" ? "btn-primary bg-blue-700" : ""
+            }`}
+          >
             <p>Booking Appointment</p>
-          </div>
-          <div className='btn btn-wide'>
+          </button>
+          <button
+            onClick={() => setActiveTab("complete")}
+            className={`btn btn-wide ${
+              activeTab === "complete" ? "btn-primary bg-blue-700" : ""
+            }`}
+          >
             <p>Complete Job</p>
-          </div>
-          <div className='btn btn-wide'>
+          </button>
+          <button
+            onClick={() => setActiveTab("cancel")}
+            className={`btn btn-wide ${
+              activeTab === "cancel" ? "btn-primary bg-blue-700" : ""
+            }`}
+          >
             <p>Cancel Job</p>
-          </div>
+          </button>
         </div>
-        <UserRequestCard/>
-        <ProviderRequestCard />
-        <AppointmentCard/>
-        <CompleteCard/>
+
+        {activeTab === "request" && <UserRequestCard />}
+        {activeTab === "appointment" && <ProviderRequestCard />}
+        {activeTab === "complete" && <CompleteCard />}
+        {activeTab === "cancel" && <AppointmentCard />}
+        
       </div>
-
-
-
     </>
-  )
+  );
 }
 
-
-export default JobStatus
+export default JobStatus;

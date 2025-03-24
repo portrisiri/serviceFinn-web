@@ -11,7 +11,7 @@ const marks = [
 function BudgetFilter(props) {
   const { searchParams, setSearchParams } = props;
   useEffect(() => {
-    if (!searchParams.maxPrice) {
+    if (!searchParams?.maxPrice) {
       setSearchParams((prv) => ({ ...prv, maxPrice: 1000 }));
     }
   }, []);
@@ -23,14 +23,14 @@ function BudgetFilter(props) {
       <div className="divider my-0"></div>
       <label className="block text-sm font-medium text-gray-700">Your budget (per service)</label>
       <p className="text-sm text-gray-500">
-        THB {searchParams.minPrice} - THB {searchParams.maxPrice}
+        THB {searchParams?.minPrice} - THB {searchParams?.maxPrice}
       </p>
       <Slider
         className="mt-2"
         min={100}
         max={1000}
         marks={marks}
-        value={[searchParams.minPrice, searchParams.maxPrice]}
+        value={[searchParams?.minPrice, searchParams?.maxPrice]}
         onChange={(event, newValue) => handleBudgetChange(event, newValue)}
         step={100}
         valueLabelDisplay="auto"

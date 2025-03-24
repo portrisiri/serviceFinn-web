@@ -18,11 +18,20 @@ const useSearchStore = create((set, get) => ({
   searchProvidersHomepage: async (targetLocation, targetCategory) => {
     try {
       set({ location: targetLocation, categoryId: targetCategory });
-      const { location, categoryId, results } = get();
+      const { location, categoryId } = get();
       const categoryIdString = categoryId ? `&categoryId=${categoryId}` : '';
       const queryString = `orderBy=distance&sort=asc&latitude=${location.latitude}&longitude=${location.longitude}${categoryIdString}`;
       const response = await axios.get(`http://localhost:4289/provider/filter?${queryString}`);
       set({ results: response.data.results, resultsCount: response.data.count });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  searchProvidersLanding: async () => {
+    try {
+      const response = await axios.get(`http://localhost:4289/provider/?orderBy=providerRating&sort=desc`);
+      const results = response.data.providers;
+      return results;
     } catch (error) {
       console.log(error);
     }

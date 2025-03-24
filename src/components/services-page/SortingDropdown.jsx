@@ -17,7 +17,7 @@ function SortingDropdown(props) {
           Order by?
         </option>
         <option value="distance">Distance</option>
-        <option value="rating">Rating</option>
+        <option value="providerrating">Rating</option>
         <option value="price">Price</option>
       </select>
     </div>

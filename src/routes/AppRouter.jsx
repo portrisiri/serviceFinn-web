@@ -36,6 +36,7 @@ import JobStatus from '../components/admin/JobStatus';
 import DocsPreview from '../pages/common/DocsPreview';
 import ServiceDetails from '../pages/common/ServiceDetails';
 import ShopManagement from '../pages/provider/ShopManagement';
+import ProfileProvider from '../pages/provider/ProfileProvider';
 function AppRouter() {
 
   return (

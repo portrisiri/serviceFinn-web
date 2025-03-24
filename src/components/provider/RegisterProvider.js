@@ -9,6 +9,7 @@ const registerProvider = async (formData) => {
       formData
     );
     return response.data;
+    navigate("/provider");
   } catch (error) {
     console.error('Error registering provider:', error);
     throw error; // Rethrow the error for component handling

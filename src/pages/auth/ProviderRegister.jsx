@@ -528,6 +528,33 @@ function ProviderStep4({ formData, onPrev, onRegister }) {
                 </button>
               </div>
             </div>
+
+            <form onSubmit={handleSubmit(onNext)} className="w-3/4">
+              <label className="fieldset-label text-sm mt-2">Bank Name</label>
+              <input
+                type="text"
+                {...register('bankName', { required: 'Bank name is required' })}
+                placeholder="Enter your Bank name"
+                className={`input input-bordered w-full mb-2 ${errors.bankName ? 'input-error' : ''}`}
+              />
+              {errors.bankName && <p className="text-red-500">{errors.bankName.message}</p>}
+
+              <label className="fieldset-label text-sm mt-2">Bank Account</label>
+              <input
+                type="text"
+                {...register('bankAccount', { required: 'Bank account is required' })}
+                placeholder="Enter your Bank account"
+                className={`input input-bordered w-full mb-2 ${errors.bankAccount ? 'input-error' : ''}`}
+              />
+              {errors.bankAccount && <p className="text-red-500">{errors.bankAccount.message}</p>}
+
+              <button type="button" onClick={onPrev} className="btn btn-secondary w-1/2 mt-4 mr-2">
+                Previous
+              </button>
+              <button type="submit" className="btn btn-primary w-1/2 mt-4">
+                Next
+              </button>
+            </form>
           </div>
         </div>
       </div>

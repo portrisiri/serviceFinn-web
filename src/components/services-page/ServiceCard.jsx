@@ -107,7 +107,6 @@ const ServiceCard = ({ serviceData }) => {
             </button>
             <br />
             <Link 
-              // to={`/service-details/${serviceData.providerId}`}
               to={`/service-details/${serviceData.providerId}`}
               className="text-red-500 text-sm flex justify-center mt-2 hover:decoration-2"
             >

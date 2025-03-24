@@ -9,18 +9,18 @@ const marks = [
 ];
 
 function BudgetFilter(props) {
-  const { searchParams, setSearchParams } = props;
-  useEffect(() => {
-    if (!searchParams.maxPrice) {
-      setSearchParams((prv) => ({ ...prv, maxPrice: 1000 }));
-    }
-  }, []);
-  const handleBudgetChange = (event, newValue) => {
-    setSearchParams((prv) => ({ ...prv, minPrice: newValue[0], maxPrice: newValue[1] }));
-  };
+  // const { searchParams, setSearchParams } = props;
+  // useEffect(() => {
+  //   if (!searchParams.maxPrice) {
+  //     setSearchParams((prv) => ({ ...prv, maxPrice: 1000 }));
+  //   }
+  // }, []);
+  // const handleBudgetChange = (event, newValue) => {
+  //   setSearchParams((prv) => ({ ...prv, minPrice: newValue[0], maxPrice: newValue[1] }));
+  // };
   return (
     <div className="w-full">
-      <div className="divider my-0"></div>
+      {/* <div className="divider my-0"></div>
       <label className="block text-sm font-medium text-gray-700">Your budget (per service)</label>
       <p className="text-sm text-gray-500">
         THB {searchParams.minPrice} - THB {searchParams.maxPrice}
@@ -46,7 +46,7 @@ function BudgetFilter(props) {
             color: 'primary.dark',
           },
         }}
-      />
+      /> */}
     </div>
   );
 }

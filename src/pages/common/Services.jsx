@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import Filter from '../../components/services-page/Filter';
 import SearchTab from '../../components/services-page/SearchTab';
@@ -14,15 +13,6 @@ const getCurrentThaiTime = () => {
   const thaiTime = new Date(now.getTime() + (7 * 60 - now.getTimezoneOffset()) * 60000);
   return thaiTime;
 };
-=======
-import { useState } from "react";
-import Filter from "../../components/services-page/Filter";
-import SearchTab from "../../components/services-page/SearchTab";
-import MapView from "../../components/services-page/MapView";
-import Pagination from "../../components/services-page/Pagination";
-import SortOption from "../../components/services-page/SortOption";
-import ServicesList from "../../components/services-page/ServicesList";
->>>>>>> dev
 
 const services = [
   { name: 'Caring', emoji: '🍼', value: 1 },
@@ -35,7 +25,6 @@ const services = [
 ];
 
 function Services() {
-<<<<<<< HEAD
   // Results, map this to provider cards
   const [results, setReults] = useState([]);
   const [resultsCount, setResultsCount] = useState(0);
@@ -103,10 +92,6 @@ function Services() {
     setResultsCount((prv) => response.data.count);
   };
 
-=======
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
->>>>>>> dev
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto p-4 flex gap-4 overflow-x-auto justify-center">
@@ -128,16 +113,12 @@ function Services() {
 
       {/* Search Bar */}
       <div className="bg-white shadow-md p-4">
-<<<<<<< HEAD
         <SearchTab
           currentLocation={currentLocation}
           searchParams={searchParams}
           setSearchParams={setSearchParams}
           handleSearchSubmit={handleSearchSubmit}
         />
-=======
-        <SearchTab selectedCategory={selectedCategory} />
->>>>>>> dev
       </div>
       <div className="container mx-auto p-4 grid grid-cols-12 gap-6">
         {/* Sidebar - MapView & Filters */}
@@ -155,33 +136,14 @@ function Services() {
           </div>
         </div>
 
-<<<<<<< HEAD
-=======
-      <div className="container mx-auto p-4 grid grid-cols-12 gap-6">
-        {/* Sidebar - MapView & Filters */}
-        <div className="col-span-3 flex flex-col gap-4">
-          <div className="bg-white p-4 rounded-lg shadow-md h-60">
-            <MapView />
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold mb-2">Filter by:</h2>
-            <Filter />
-          </div>
-        </div>
-
->>>>>>> dev
         {/* Main Content */}
         <div className="col-span-9">
           <div className="bg-white p-4 rounded-lg shadow-md mb-4 flex justify-between items-center">
             <h1 className="text-xl font-bold">Bangkok: 4,387 services found</h1>
             <SortOption />
           </div>
-<<<<<<< HEAD
           <div>Fetched {resultsCount} results</div>
           <pre>{JSON.stringify(results, null, 2)}</pre>
-=======
-
->>>>>>> dev
           <div className="">
             <ServicesList />
           </div>

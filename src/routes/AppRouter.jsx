@@ -50,7 +50,9 @@ function AppRouter() {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="docs-preview" element={<DocsPreview/>} />
-          <Route path="service-details" element={<ServiceDetails/>} />
+          {/* <Route path="service-details" element={<ServiceDetails/>} /> */}
+          <Route path="/service-details/:providerId" element={<ServiceDetails />} />
+          
 
             <Route path="login" element={<UserLogin />} />
             <Route path="signupuser" element={<UserSignup />} />

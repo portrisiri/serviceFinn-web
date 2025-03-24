@@ -143,7 +143,7 @@ function Services() {
             <SortOption />
           </div>
           <div>Fetched {resultsCount} results</div>
-          <pre>{JSON.stringify(results, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(results, null, 2)}</pre> */}
           <div className="">
             <ServicesList />
           </div>

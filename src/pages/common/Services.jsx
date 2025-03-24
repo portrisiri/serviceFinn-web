@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import Filter from '../../components/services-page/Filter';
 import SearchTab from '../../components/services-page/SearchTab';
 import MapView from '../../components/services-page/MapView';
@@ -7,6 +6,9 @@ import Pagination from '../../components/services-page/Pagination';
 import SortOption from '../../components/services-page/SortOption';
 import ServicesList from '../../components/services-page/ServicesList';
 import useSearchStore from '../../services/searchService';
+import { AppBar, Dialog, IconButton, Slide, Toolbar, Typography } from '@mui/material';
+import SearchTabVertical from '../../components/services-page/SearchTabVertical';
+import MapArea from '../../components/common/MapArea';
 
 // ตั้งค่าเวลาปัจจุบันในประเทศไทย (UTC+7)
 const getCurrentThaiTime = () => {
@@ -14,15 +16,6 @@ const getCurrentThaiTime = () => {
   const thaiTime = new Date(now.getTime() + (7 * 60 - now.getTimezoneOffset()) * 60000);
   return thaiTime;
 };
-=======
-import { useState } from "react";
-import Filter from "../../components/services-page/Filter";
-import SearchTab from "../../components/services-page/SearchTab";
-import MapView from "../../components/services-page/MapView";
-import Pagination from "../../components/services-page/Pagination";
-import SortOption from "../../components/services-page/SortOption";
-import ServicesList from "../../components/services-page/ServicesList";
->>>>>>> dev
 
 const services = [
   { name: 'Caring', emoji: '🍼', value: 1 },
@@ -33,9 +26,11 @@ const services = [
   { name: 'Pet Care', emoji: '🐾', value: 6 },
   { name: 'Gardening', emoji: '🌿', value: 7 },
 ];
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function Services() {
-<<<<<<< HEAD
   // Results, map this to provider cards
   const [results, setReults] = useState([]);
   const [resultsCount, setResultsCount] = useState(0);
@@ -51,17 +46,26 @@ function Services() {
     maxPrice: 0,
     orderBy: '',
     sort: '',
+    radius: 5,
   });
   const searchProviders = useSearchStore((state) => state.searchProvidersServicePage);
   // Temporary parameters and results from home page
   const tempResults = useSearchStore((state) => state.results);
   const tempCount = useSearchStore((state) => state.resultsCount);
   const tempCategory = useSearchStore((state) => state.categoryId);
+  const getTempProviders = useSearchStore((state) => state.searchProvidersLanding);
   // const tempLocation = useSearchStore((state) => state.location);
 
-  useEffect(() => {
+  useEffect(async () => {
     navigator.geolocation.getCurrentPosition(success, error);
-    setReults((prv) => tempResults);
+    if (tempResults) {
+      setReults((prv) => tempResults);
+    } else {
+      console.log('all providers');
+      const results = await getTempProviders();
+      console.log(results);
+      setReults((prv) => results);
+    }
     setResultsCount((prv) => tempCount);
     setSearchParams((prv) => ({
       ...prv,
@@ -103,10 +107,17 @@ function Services() {
     setResultsCount((prv) => response.data.count);
   };
 
-=======
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  // Modal Handling
+  const [openModal, setOpenModal] = useState(false);
 
->>>>>>> dev
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto p-4 flex gap-4 overflow-x-auto justify-center">
@@ -128,22 +139,18 @@ function Services() {
 
       {/* Search Bar */}
       <div className="bg-white shadow-md p-4">
-<<<<<<< HEAD
         <SearchTab
           currentLocation={currentLocation}
           searchParams={searchParams}
           setSearchParams={setSearchParams}
           handleSearchSubmit={handleSearchSubmit}
         />
-=======
-        <SearchTab selectedCategory={selectedCategory} />
->>>>>>> dev
       </div>
       <div className="container mx-auto p-4 grid grid-cols-12 gap-6">
         {/* Sidebar - MapView & Filters */}
         <div className="col-span-3 flex flex-col gap-4">
           <div className="bg-white p-4 rounded-lg shadow-md h-60">
-            <MapView />
+            <MapView handleOpenModal={handleOpenModal} />
           </div>
           <div className="bg-white p-4 rounded-lg shadow-md">
             <h2 className="text-lg font-semibold mb-2">Filter by:</h2>
@@ -155,33 +162,14 @@ function Services() {
           </div>
         </div>
 
-<<<<<<< HEAD
-=======
-      <div className="container mx-auto p-4 grid grid-cols-12 gap-6">
-        {/* Sidebar - MapView & Filters */}
-        <div className="col-span-3 flex flex-col gap-4">
-          <div className="bg-white p-4 rounded-lg shadow-md h-60">
-            <MapView />
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h2 className="text-lg font-semibold mb-2">Filter by:</h2>
-            <Filter />
-          </div>
-        </div>
-
->>>>>>> dev
         {/* Main Content */}
         <div className="col-span-9">
           <div className="bg-white p-4 rounded-lg shadow-md mb-4 flex justify-between items-center">
-            <h1 className="text-xl font-bold">Bangkok: 4,387 services found</h1>
+            <h1 className="text-xl font-bold">Bangkok: {resultsCount} services found</h1>
             <SortOption />
           </div>
-<<<<<<< HEAD
           <div>Fetched {resultsCount} results</div>
           <pre>{JSON.stringify(results, null, 2)}</pre>
-=======
-
->>>>>>> dev
           <div className="">
             <ServicesList />
           </div>
@@ -191,6 +179,40 @@ function Services() {
           </div>
         </div>
       </div>
+      {/* Map Popup ----------------------------------------------------------------------*/}
+      <Dialog fullScreen open={openModal} onClose={handleCloseModal} TransitionComponent={Transition}>
+        <AppBar sx={{ position: 'relative', backgroundColor: 'primary' }}>
+          <Toolbar>
+            <Typography sx={{ ml: 2, flex: 1, textAlign: 'center' }} variant="h6" component="div">
+              Map View
+            </Typography>
+            <IconButton edge="start" color="inherit" onClick={handleCloseModal} aria-label="close">
+              x
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <div className="flex">
+          {/* Left Container */}
+          <div className="w-1/5">
+            <div className="bg-white shadow-md p-4">
+              <SearchTabVertical searchParams={searchParams} setSearchParams={setSearchParams} />
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-md">
+              <h2 className="text-lg font-semibold mb-2">Filter by:</h2>
+              <Filter
+                searchParams={searchParams}
+                setSearchParams={setSearchParams}
+                handleSearchSubmit={handleSearchSubmit}
+              />
+            </div>
+          </div>
+          {/* Right Container */}
+          <div className="w-4/5">
+            {/* <pre>{JSON.stringify(results, null, 2)}</pre> */}
+            <MapArea searchParams={searchParams} results={results} />
+          </div>
+        </div>
+      </Dialog>
     </div>
   );
 }

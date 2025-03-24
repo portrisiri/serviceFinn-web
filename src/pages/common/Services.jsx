@@ -1,4 +1,7 @@
+
+
 import { forwardRef, useEffect, useState } from 'react';
+
 import Filter from '../../components/services-page/Filter';
 import SearchTab from '../../components/services-page/SearchTab';
 import MapView from '../../components/services-page/MapView';
@@ -107,6 +110,8 @@ function Services() {
     setResultsCount((prv) => response.data.count);
   };
 
+
+
   // Modal Handling
   const [openModal, setOpenModal] = useState(false);
 
@@ -117,6 +122,7 @@ function Services() {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -169,9 +175,9 @@ function Services() {
             <SortOption />
           </div>
           <div>Fetched {resultsCount} results</div>
-          <pre>{JSON.stringify(results, null, 2)}</pre>
+
           <div className="">
-            <ServicesList />
+            <ServicesList results={results}/>
           </div>
 
           <div className="mt-6 flex justify-center">

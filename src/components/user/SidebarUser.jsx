@@ -11,7 +11,7 @@ function SidebarUser() {
 
   const { getToken, isSignedIn } = useAuth()
   const token = getToken()
-  const user = useUser()
+  const {user} = useUser()
 
   useEffect(() => {
     getToken()

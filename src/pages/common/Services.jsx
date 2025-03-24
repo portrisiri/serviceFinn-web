@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+
+
+import { forwardRef, useEffect, useState } from 'react';
+
 import Filter from '../../components/services-page/Filter';
 import SearchTab from '../../components/services-page/SearchTab';
 import MapView from '../../components/services-page/MapView';
@@ -6,6 +9,9 @@ import Pagination from '../../components/services-page/Pagination';
 import SortOption from '../../components/services-page/SortOption';
 import ServicesList from '../../components/services-page/ServicesList';
 import useSearchStore from '../../services/searchService';
+import { AppBar, Dialog, IconButton, Slide, Toolbar, Typography } from '@mui/material';
+import SearchTabVertical from '../../components/services-page/SearchTabVertical';
+import MapArea from '../../components/common/MapArea';
 
 // ตั้งค่าเวลาปัจจุบันในประเทศไทย (UTC+7)
 const getCurrentThaiTime = () => {
@@ -23,6 +29,9 @@ const services = [
   { name: 'Pet Care', emoji: '🐾', value: 6 },
   { name: 'Gardening', emoji: '🌿', value: 7 },
 ];
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function Services() {
   // Results, map this to provider cards
@@ -40,17 +49,26 @@ function Services() {
     maxPrice: 0,
     orderBy: '',
     sort: '',
+    radius: 5,
   });
   const searchProviders = useSearchStore((state) => state.searchProvidersServicePage);
   // Temporary parameters and results from home page
   const tempResults = useSearchStore((state) => state.results);
   const tempCount = useSearchStore((state) => state.resultsCount);
   const tempCategory = useSearchStore((state) => state.categoryId);
+  const getTempProviders = useSearchStore((state) => state.searchProvidersLanding);
   // const tempLocation = useSearchStore((state) => state.location);
 
-  useEffect(() => {
+  useEffect(async () => {
     navigator.geolocation.getCurrentPosition(success, error);
-    setReults((prv) => tempResults);
+    if (tempResults) {
+      setReults((prv) => tempResults);
+    } else {
+      console.log('all providers');
+      const results = await getTempProviders();
+      console.log(results);
+      setReults((prv) => results);
+    }
     setResultsCount((prv) => tempCount);
     setSearchParams((prv) => ({
       ...prv,
@@ -92,6 +110,20 @@ function Services() {
     setResultsCount((prv) => response.data.count);
   };
 
+
+
+  // Modal Handling
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto p-4 flex gap-4 overflow-x-auto justify-center">
@@ -124,7 +156,7 @@ function Services() {
         {/* Sidebar - MapView & Filters */}
         <div className="col-span-3 flex flex-col gap-4">
           <div className="bg-white p-4 rounded-lg shadow-md h-60">
-            <MapView />
+            <MapView handleOpenModal={handleOpenModal} />
           </div>
           <div className="bg-white p-4 rounded-lg shadow-md">
             <h2 className="text-lg font-semibold mb-2">Filter by:</h2>
@@ -139,11 +171,11 @@ function Services() {
         {/* Main Content */}
         <div className="col-span-9">
           <div className="bg-white p-4 rounded-lg shadow-md mb-4 flex justify-between items-center">
-            <h1 className="text-xl font-bold">Bangkok: 4,387 services found</h1>
+            <h1 className="text-xl font-bold">Bangkok: {resultsCount} services found</h1>
             <SortOption />
           </div>
           <div>Fetched {resultsCount} results</div>
-          {/* <pre>{JSON.stringify(results, null, 2)}</pre> */}
+
           <div className="">
             <ServicesList results={results}/>
           </div>
@@ -153,6 +185,40 @@ function Services() {
           </div>
         </div>
       </div>
+      {/* Map Popup ----------------------------------------------------------------------*/}
+      <Dialog fullScreen open={openModal} onClose={handleCloseModal} TransitionComponent={Transition}>
+        <AppBar sx={{ position: 'relative', backgroundColor: 'primary' }}>
+          <Toolbar>
+            <Typography sx={{ ml: 2, flex: 1, textAlign: 'center' }} variant="h6" component="div">
+              Map View
+            </Typography>
+            <IconButton edge="start" color="inherit" onClick={handleCloseModal} aria-label="close">
+              x
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <div className="flex">
+          {/* Left Container */}
+          <div className="w-1/5">
+            <div className="bg-white shadow-md p-4">
+              <SearchTabVertical searchParams={searchParams} setSearchParams={setSearchParams} />
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-md">
+              <h2 className="text-lg font-semibold mb-2">Filter by:</h2>
+              <Filter
+                searchParams={searchParams}
+                setSearchParams={setSearchParams}
+                handleSearchSubmit={handleSearchSubmit}
+              />
+            </div>
+          </div>
+          {/* Right Container */}
+          <div className="w-4/5">
+            {/* <pre>{JSON.stringify(results, null, 2)}</pre> */}
+            <MapArea searchParams={searchParams} results={results} />
+          </div>
+        </div>
+      </Dialog>
     </div>
   );
 }

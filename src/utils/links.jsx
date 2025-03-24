@@ -7,7 +7,7 @@ export const userSidebarLink = [
 ];
 
 export const adminSidebarLink = [
-    { label: "Dashboard", link: "/admin", icon: <LayoutDashboard /> },
+    { label: "Dashboard", link: "/admin/dashboard-admin", icon: <LayoutDashboard /> },
     { label: "Users Management", link: "/admin/users", icon: <LayoutDashboard /> },
     { label: "Providers Management", link: "/admin/providers", icon: <User2Icon /> },
     // { label: "Orders Management", link: "/admin/orders", icon: <User2Icon /> },
@@ -15,7 +15,7 @@ export const adminSidebarLink = [
 ];
 
 export const providerSidebarLink = [
-    { label: "Dashboard", link: "/provider", icon: <LayoutDashboard /> },
+    { label: "Dashboard", link: "/provider/dashboard-provider", icon: <LayoutDashboard /> },
     { label: "Profile", link: "/provider/profile", icon: <LayoutDashboard /> },
     { label: "Shop Management", link: "/provider/shop-management", icon: <LayoutDashboard /> },
     { label: "Orders Management", link: "/provider/booking-management", icon: <User2Icon /> },

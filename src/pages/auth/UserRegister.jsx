@@ -1,8 +1,12 @@
+import React, { useState } from "react";
 import axios from "axios";
 import { useUser, useAuth } from "@clerk/clerk-react";
-import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import MapCurrentLocation from "../../components/common/MapCurrentLocation";
+
 
 function UserRegister() {
   const {
@@ -12,150 +16,92 @@ function UserRegister() {
     setValue,
   } = useForm();
 
-  const { getToken, isSigndIn } = useAuth()
+  const { getToken, isSigndIn } = useAuth();
   const user = useUser();
-  
-  // console.log(user)
-  // console.log(user.user.firstName)
-  
   const navigate = useNavigate();
-  
-  // useEffect(() => {
-  //   if (user?.user) {
-  //     if (user.user.firstName) {
-  //       setValue("firstName", user.user.firstName);
-  //     }
-  //     if (user.user.lastName) {
-  //       setValue("lastName", user.user.lastName);
-  //     }
-  //     if (user.user.primaryEmailAddress?.emailAddress) {
-  //       setValue("email", user.user.primaryEmailAddress.emailAddress);
-  //     }
-  //     if (user.user.primaryPhoneNumber?.phoneNumber) {
-  //       setValue("phone", user.user.primaryPhoneNumber.phoneNumber);
-  //     }
-  //   }
-  // }, [user,setValue]);
-  
+
+  const [currentAddress, setCurrentAddress] = useState(null);
+  const [currentLat, setCurrentLat] = useState(null);
+  const [currentLng, setCurrentLng] = useState(null);
+
+  const handleAddressChange = (data) => {
+    setCurrentAddress(data.address);
+    setCurrentLat(data.lat);
+    setCurrentLng(data.lng);
+  };
+
   const onSubmit = async (data) => {
     try {
-      console.log(data)
-      
-      if (!user) {
-        console.error("User not authenticated.");
+      console.log("Form Data:", data);
+      console.log("Current Address:", currentAddress);
+      console.log("Latitude:", currentLat);
+      console.log("Longitude:", currentLng);
+  
+      if (!user || !user.user) { // Check if user and user.user exist
+        console.error("User not authenticated or user data not available.");
         return;
       }
-      
-      const clerkID = user.user.id; // Get Clerk user ID
-      const token = await getToken(); // Get Clerk auth token
-      const profilePicture = user.user.imageUrl
+  
+      const clerkID = user.user.id;
+      const token = await getToken();
+      const profilePicture = user.user.imageUrl;
+      const firstName = user.user.firstName;
+      const lastName = user.user.lastName;
+      const email = user.user.primaryEmailAddress?.emailAddress;
+      const phone = user.user.primaryPhoneNumber?.phoneNumber;
+  
       const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       };
-      
+  
       const response = await axios.post(
-        "http://localhost:4289/auth/registerUser", // Replace with your API endpoint
+        "http://localhost:4289/auth/registerUser",
         {
           ...data,
           clerkID: clerkID,
           profilePicture: profilePicture,
+          address: currentAddress,
+          latitude: currentLat,
+          longitude: currentLng,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
         },
         { headers }
       );
+  
       console.log("API Response:", response.data);
-      user.user.reload()
-      
-       navigate("/user/profile"); // redirect to home page or another page.
+      user.user.reload();
+      navigate("/user/profile");
     } catch (error) {
       console.error("API Error:", error);
-      // Handle error (e.g., show an error message)
     }
   };
 
   return (
-    <div className="bg-yellow-400">
-        <p className="text-xl font-bold"> Reconfirm your information to complete registration! </p>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-3/4">
-        {/* ... (rest of the form remains the same) */}
-        <label className="fieldset-label text-sm mt-2">
-          First Name
-        </label>
-        <input
-          type="text"
-          {...register("firstName", {
-            required: "First name is required",
-          })}
-          placeholder="Enter your First name"
-          className={`input input-bordered w-full mb-2 ${
-            errors.firstName ? "input-error" : ""
-          }`}
-        />
-        {errors.firstName && (
-          <p className="text-red-500 text-xs">
-            {errors.firstName.message}
-          </p>
-        )}
+    <div>
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="bg-white w-[1200px] h-[700px] flex flex-col rounded-lg shadow-lg overflow-hidden items-center">
+          <h2 className="text-3xl font-bold p-10">Select your default Location</h2>
 
-        <label className="fieldset-label text-sm mt-2">Last Name</label>
-        <input
-          type="text"
-          {...register("lastName", {
-            required: "Last name is required",
-          })}
-          placeholder="Enter your Last name"
-          className={`input input-bordered w-full mb-2 ${
-            errors.lastName ? "input-error" : ""
-          }`}
-        />
-        {errors.lastName && (
-          <p className="text-red-500 text-xs">
-            {errors.lastName.message}
-          </p>
-        )}
+          <div className="w-[80%] h-[400px]">
+            <MapCurrentLocation onAddressChange={handleAddressChange} />
+          </div>
 
-        <label className="fieldset-label text-sm mt-2">
-          E-mail Address
-        </label>
-        <input
-          type="email"
-          {...register("email", {
-            required: "Email is required",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address",
-            },
-          })}
-          placeholder="Enter your Email"
-          className={`input input-bordered w-full mb-2 ${
-            errors.email ? "input-error" : ""
-          }`}
-        />
-        {errors.email && (
-          <p className="text-red-500 text-xs">{errors.email.message}</p>
-        )}
-
-        <label className="fieldset-label text-sm mt-2">
-          Phone Number
-        </label>
-        <input
-          type="text"
-          {...register("phone", {
-            required: "Phone number is required",
-          })}
-          placeholder="Enter your Phone number"
-          className={`input input-bordered w-full mb-2 ${
-            errors.phone ? "input-error" : ""
-          }`}
-        />
-        {errors.phone && (
-          <p className="text-red-500 text-xs">{errors.phone.message}</p>
-        )}
-
-        <button type="submit" className="btn btn-primary mt-4">
-          Submit
-        </button>
-      </form>
+          <div className="p-4 mt-2 mb-2">
+            <p>Current Address:</p>
+            <p>{currentAddress}</p>
+          </div>
+          <button
+            className="btn btn-primary hover:bg-pink-500 hover:text-white"
+            onClick={handleSubmit(onSubmit)}
+          >
+            Confirm Location and Register
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

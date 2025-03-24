@@ -7,6 +7,22 @@ function CreateShopHourly(props) {
     const [subcat, setSubCat] = useState([]);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const createService = async (data) => {
+        try {
+            const response = await axios.post(`http://localhost:4289/service/create`, {
+                providerId: 'P10223BKK', // Ensure this is available from props
+                subCatName: data.shopType, // shopType holds subCatId
+                price: data.shopPrice,
+                shopDetails: data.shopDetail,
+                shopPicture: data.shopPicture || null, // Handle optional image upload
+            });
+    
+            console.log('Service created successfully:', response.data);
+        } catch (err) {
+            console.error('Error creating service:', err.response?.data || err.message);
+        }
+    };
+
     useEffect(() => {
         const getSubCat = async () => {
             try {
@@ -21,6 +37,7 @@ function CreateShopHourly(props) {
 
     const onSubmit = (data) => {
         console.log(data);
+        createService(data)
         // Here you can handle the form submission, e.g., send data to an API
     };
 

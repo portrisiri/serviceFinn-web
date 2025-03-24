@@ -10,7 +10,7 @@ function ShopManagement() {
   useEffect( ()=>{
     const fetch = async()=>{
       const resp = await axios.get('http://localhost:4289/provider/P10223BKK')
-      console.log(resp.data.provider.skills)
+      console.log(resp.data)
       setProviderCat(resp.data.provider.skills)
     }
     fetch()

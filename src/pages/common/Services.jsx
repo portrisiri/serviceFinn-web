@@ -145,7 +145,7 @@ function Services() {
           <div>Fetched {resultsCount} results</div>
           {/* <pre>{JSON.stringify(results, null, 2)}</pre> */}
           <div className="">
-            <ServicesList />
+            <ServicesList results={results}/>
           </div>
 
           <div className="mt-6 flex justify-center">

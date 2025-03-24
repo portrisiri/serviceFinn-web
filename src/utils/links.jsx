@@ -10,8 +10,8 @@ export const adminSidebarLink = [
     { label: "Dashboard", link: "/admin", icon: <LayoutDashboard /> },
     { label: "Users Management", link: "/admin/users", icon: <LayoutDashboard /> },
     { label: "Providers Management", link: "/admin/providers", icon: <User2Icon /> },
-    { label: "Orders Management", link: "/admin/orders", icon: <User2Icon /> },
-    { label: "Services History", link: "/admin/history", icon: <User2Icon /> },
+    // { label: "Orders Management", link: "/admin/orders", icon: <User2Icon /> },
+    // { label: "Services History", link: "/admin/history", icon: <User2Icon /> },
 ];
 
 export const providerSidebarLink = [

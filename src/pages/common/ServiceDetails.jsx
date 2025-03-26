@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, User, Tag, Heart, Share, MessageSquare, Star } from 'lucide-react';
 import { useUser } from '@clerk/clerk-react';
+import DateCarousel from '../../components/services-page/DateCarousel';
+import axios from 'axios';
 
 function ServiceDetails({ serviceId }) {
   // States for data
@@ -10,46 +12,63 @@ function ServiceDetails({ serviceId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useUser();
-  
+
   // UI states
-  const [showModal, setShowModal] = useState(false);
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [commentText, setCommentText] = useState('');
   const [jobDetails, setJobDetails] = useState('');
+  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [modalOpen, setModalOpen] = useState(null);
 
   // Fetch service and provider data
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        
-        // Fetch providers from the API
-        const providersResponse = await fetch('http://localhost:4289/provider');
-        const providersData = await providersResponse.json();
-        
-        // For development purposes, we'll use the first provider from the list
-        // In production, you would fetch the specific provider related to this service
-        const providerData = providersData.providers[0];
-        
+
+
+        const providerData = {
+          "providerId": "P87654BKK",
+          "role": "PROVIDER",
+          "firstName": "Emily",
+          "lastName": "Taylor",
+          "email": "emily.taylor@example.com",
+          "phoneNumber": "+66 456 789 012",
+          "companyName": null,
+          "personalVerification": false,
+          "qualificationVerification": false,
+          "companyVerification": false,
+          "skills": null,
+          "availability": null,
+          "profilePicture": "/nanny4.jpg",
+          "providerRating": null,
+          "latitude": "13.753",
+          "longitude": "100.5025",
+          "isActive": null,
+          "isCompleted": false
+        }
+
         // Mock service data - in production, you would fetch this from your API
         const mockService = {
           id: '1',
-          title: 'Professional Plumbing Service',
-          banner: '/plumberEx2.jpg',
-          description: 'Expert plumbing services for residential and commercial properties. We offer quick response times and professional solutions for all your plumbing needs.\n\nOur services include:\n- Pipe repair and replacement\n- Fixture installation\n- Drain cleaning\n- Water heater services\n- Emergency plumbing repairs\n\nWe pride ourselves on reliable service, transparent pricing, and quality workmanship.',
+          title: 'Professional Childcare Service',
+          banner: '/nanny6.jpg',
+          description: 'Professional childcare services for families in need of experienced and loving care. We provide compassionate, reliable, and qualified nannies to help with your childcare needs.',
           date: new Date().toISOString(),
           endTime: '18:00',
           location: 'Bangkok Metropolitan Area',
           locationDetails: 'Service available in all districts',
-          categories: 'Plumbing, Home Repair, Emergency Services',
+          categories: 'Child care service',
           status: 'ACTIVE',
+          price: '1,500',
           providerId: providerData.providerId,
           latitude: parseFloat(providerData.latitude) || 13.7563,
           longitude: parseFloat(providerData.longitude) || 100.5018
         };
-        
+
         // Map the API provider data to our component's expected format
         const mappedProvider = {
           providerId: providerData.providerId,
@@ -68,41 +87,122 @@ function ServiceDetails({ serviceId }) {
           isActive: providerData.isActive || true,
           isCompleted: providerData.isCompleted || false
         };
-        
+
         // Mock comments data
         const mockComments = [
           {
             id: 1,
             user: {
-              name: 'Pranee L.',
-              avatar: '/avatar1.jpg'
+              name: 'Leane Lee.',
+              avatar: '/comment/3.jpg'
             },
-            content: 'Very professional service! Fixed my sink issue quickly and for a reasonable price.',
+            content: '"Our children absolutely adored her! She was always coming up with fun activities and games.',
             date: '2 weeks ago',
             rating: 5
           },
           {
             id: 2,
             user: {
-              name: 'Tanawat K.',
-              avatar: '/avatar2.jpg'
+              name: 'Samorn T.',
+              avatar: '/comment/4.jpg'
             },
-            content: 'Good service but arrived a bit late. Otherwise work quality was excellent.',
+            content: 'She was always on time, and we could always count on her to be there when we needed her.',
             date: '1 month ago',
             rating: 4
           },
           {
             id: 3,
             user: {
-              name: 'Provider',
-              avatar: '/provider.jpg',
+              name: 'Richard B.',
+              avatar: '/comment/1.jpg',
               isProvider: true
             },
-            content: 'Thank you for your feedback! We always strive to provide the best service possible.',
-            date: '3 weeks ago'
-          }
+            content: 'Excellent communication! She kept us informed about our children.',
+            date: '5 days ago',
+            rating: 4
+          },
+          {
+            id: 4,
+            user: {
+              name: 'Mary J.',
+              avatar: '/comment/6.jpg',
+              isProvider: true
+            },
+            content: 'We felt completely comfortable leaving our children in her care. She is incredibly trustworthy.',
+            date: '1 days ago',
+            rating: 4
+          },
+          {
+            id: 5,
+            user: {
+              name: 'Phada T.',
+              avatar: '/comment/2.jpg',
+              isProvider: true
+            },
+            content: 'She has a very calm and patient demeanor, even when dealing with toddler tantrums.',
+            date: '3 months ago',
+            rating: 4
+          },
+          {
+            id: 6,
+            user: {
+              name: 'Sukit K.',
+              avatar: '/comment/5.jpg',
+              isProvider: true
+            },
+            content: 'She went above and beyond, helping with light housework and meal preparation.',
+            date: '3 weeks ago',
+            rating: 5
+          },
+          {
+            id: 7,
+            user: {
+              name: 'Pravit T.',
+              avatar: '/comment/9.jpg',
+              isProvider: true
+            },
+            content: 'Her extensive experience with children of all ages was evident in her confident care.',
+            date: '6 days ago',
+            rating: 4
+          },
+          {
+            id: 8,
+            user: {
+              name: 'Jane T.',
+              avatar: '/comment/7.jpg',
+              isProvider: true
+            },
+            content: 'Having her as our nanny gave us complete peace of mind, knowing our children were in good hands.',
+            date: '2 days ago',
+            rating: 4
+          },
+          {
+            id: 9,
+            user: {
+              name: 'Pong T.',
+              avatar: '/comment/10.jpg',
+              isProvider: true
+            },
+            content: 'She quickly adapted to our family routine and was flexible with our changing schedules.',
+            date: '4 days ago',
+            rating: 4
+          },
+          {
+            id: 10,
+            user: {
+              name: 'Pang T.',
+              avatar: '/comment/8.jpg',
+              isProvider: true
+            },
+            content: 'Excellent work with good discipline',
+            date: '1 days ago',
+            rating: 5
+          },
+
+
+
         ];
-        
+
         setService(mockService);
         setProvider(mappedProvider);
         setComments(mockComments);
@@ -113,52 +213,48 @@ function ServiceDetails({ serviceId }) {
         console.error('Error fetching data:', err);
       }
     };
-    
+
     fetchData();
   }, [serviceId]);
 
-  // Format service date
-  const formatServiceDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('th-TH', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+  // Modal handling functions
+  const openBookingModal = () => {
+    setIsBookingModalOpen(true);
   };
 
-  const handleBookNow = () => {
-    // Check if user is logged in - implement your auth logic here
-    if (!user) {
-      alert('Please log in to book this service');
-      return;
-    }
-    
-    setShowModal(true);
+  const closeBookingModal = () => {
+    setIsBookingModalOpen(false);
+    // Reset booking-related states if needed
+    setSelectedDate(null);
+    setSelectedTime(null);
+    setJobDetails('');
   };
 
-  const handleProceedToPayment = () => {
-    setShowPaymentModal(true);
+  const openPaymentModal = () => {
+    setIsPaymentModalOpen(true);
   };
-
-  const handleConfirmPayment = () => {
-    // Mock payment behavior - implement actual payment logic
-    setShowPaymentModal(false);
-    setShowModal(false);
-    alert('Booking confirmed!');
-  };
-
-  const handleSubmitComment = (e) => {
-    e.preventDefault();
-    alert('Comment functionality would be implemented here');
-    setCommentText('');
+  const handlepayment = async()=>{
+    const resp = await axios.post('http://localhost:4289/payment/create-payment')
+    // Redirect user to Stripe checkout
+   setModalOpen( window.location.href = resp.data.checkoutUrl)
+  }
+  const closePaymentModal = () => {
+    setIsPaymentModalOpen(false)
   };
 
   const handleCompleteBooking = () => {
     if (selectedTime) {
-      handleProceedToPayment();
+      openPaymentModal();
+    } else {
+      alert('Please select a time slot');
     }
+  };
+
+  const handleConfirmPayment = () => {
+    // Mock payment behavior - implement actual payment logic
+    closePaymentModal();
+    alert('Booking confirmed!');
+    // Additional booking confirmation logic
   };
 
   if (loading) return <div className="text-center p-10">Loading service details...</div>;
@@ -167,11 +263,14 @@ function ServiceDetails({ serviceId }) {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8">
+      <div className={`
+      container mx-auto px-4 py-8 
+      ${isBookingModalOpen || isPaymentModalOpen ? 'opacity-30 pointer-events-none' : 'opacity-100'}
+    `}>
         {/* Service Banner */}
         <div className="relative h-[400px] w-full mb-8">
-          <img 
-            src={service.banner || "/placeholder-service.jpg"} 
+          <img
+            src={service.banner || "/placeholder-service.jpg"}
             alt={service.title}
             className="w-full h-full object-cover rounded-lg"
           />
@@ -182,20 +281,20 @@ function ServiceDetails({ serviceId }) {
           {/* Main Content */}
           <div className="md:col-span-2">
             <h1 className="text-4xl font-bold mb-4">{service.title}</h1>
-            
+
             <div className="flex items-center gap-4 mb-6">
               <div className="flex items-center gap-2 text-gray-600">
                 <User className="w-5 h-5" />
                 <span>Provider: {provider.companyName || `${provider.firstName} ${provider.lastName}`}</span>
               </div>
-              
+
               {provider.providerRating && (
                 <div className="flex items-center gap-1 text-yellow-500">
                   <Star className="w-5 h-5 fill-current" />
                   <span className="font-semibold">{provider.providerRating.toFixed(1)}</span>
                 </div>
               )}
-              
+
               <div className="flex gap-2">
                 {provider.personalVerification && (
                   <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Verified</span>
@@ -238,7 +337,7 @@ function ServiceDetails({ serviceId }) {
                     <p>{service.categories}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-3">
                   <User className="w-5 h-5 text-primary" />
                   <div>
@@ -265,31 +364,20 @@ function ServiceDetails({ serviceId }) {
                   </span>
                 </div>
               </div>
-              
-              {/* Comment Form */}
-              <form onSubmit={handleSubmitComment} className="mb-6">
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0"></div>
-                  <div className="flex-grow">
-                    <textarea 
-                      className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="Add a comment or review..."
-                      rows="3"
-                      value={commentText}
-                      onChange={(e) => setCommentText(e.target.value)}
-                    ></textarea>
-                    <div className="flex justify-end mt-2">
-                      <button type="submit" className="btn btn-primary">Post Comment</button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-              
+
+
+
               {/* Comments List */}
               <div className="space-y-6">
                 {comments.map((comment) => (
                   <div key={comment.id} className="flex gap-4">
-                    <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0"></div>
+                    <div className="w-10 h-10 rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center">
+                      <img
+                        src={comment.user.avatar}
+                        alt="comment"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <div className="flex-grow">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-semibold">{comment.user.name}</span>
@@ -298,18 +386,18 @@ function ServiceDetails({ serviceId }) {
                         )}
                         <span className="text-sm text-gray-500">{comment.date}</span>
                       </div>
-                      
+
                       {comment.rating && (
                         <div className="flex items-center gap-1 mb-2">
                           {[...Array(5)].map((_, i) => (
-                            <Star 
-                              key={i} 
-                              className={`w-4 h-4 ${i < comment.rating ? 'text-yellow-500 fill-current' : 'text-gray-300'}`} 
+                            <Star
+                              key={i}
+                              className={`w-4 h-4 ${i < comment.rating ? 'text-yellow-500 fill-current' : 'text-gray-300'}`}
                             />
                           ))}
                         </div>
                       )}
-                      
+
                       <p className="mt-1">{comment.content}</p>
                     </div>
                   </div>
@@ -321,15 +409,15 @@ function ServiceDetails({ serviceId }) {
           {/* Sidebar */}
           <div className="md:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
-              <h2 className="text-2xl font-semibold mb-4">Book this Service</h2>
-              
+              <h2 className="text-2xl font-semibold mb-4">Price: {service.price} ฿</h2>
+
               {/* Booking Button */}
-              <button 
+              <button
                 className="btn btn-primary w-full mb-4"
                 disabled={service.status !== 'ACTIVE'}
-                onClick={handleBookNow}
-              >
-                {service.status === 'ACTIVE' ? 'Book Now' : 'Service Unavailable'}
+                onClick={openBookingModal}
+              > 
+               {service.status === 'ACTIVE' ? 'Book Now' : 'Service Unavailable'}
               </button>
 
               {/* Provider contact */}
@@ -339,10 +427,10 @@ function ServiceDetails({ serviceId }) {
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-12 h-12 rounded-full bg-gray-300 overflow-hidden">
                       {provider.profilePicture && (
-                        <img 
-                          src={provider.profilePicture} 
-                          alt="Provider" 
-                          className="w-full h-full object-cover" 
+                        <img
+                          src={provider.profilePicture}
+                          alt="Provider"
+                          className="w-full h-full object-cover"
                         />
                       )}
                     </div>
@@ -369,12 +457,17 @@ function ServiceDetails({ serviceId }) {
                 <h3 className="font-semibold mb-2">Service Area</h3>
                 <div className="rounded overflow-hidden">
                   <div className="bg-gray-200 h-48 relative">
+                    <img
+                      src="/mapNearby.png"
+                      alt="map"
+                      className="w-full h-full object-cover"
+                    />
                     {/* Map placeholder - replace with actual map component */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <MapPin className="w-8 h-8 text-red-500" />
-                    </div>
+
                     <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-80 p-2 text-center text-sm">
-                      {service.location}
+
+
+
                     </div>
                   </div>
                 </div>
@@ -404,30 +497,65 @@ function ServiceDetails({ serviceId }) {
       </div>
 
       {/* Simplified Booking Modal */}
-      <BookingModal
-        isModalOpen={showModal}
-        setIsModalOpen={setShowModal}
-        service={service}
-        provider={provider}
-        jobDetails={jobDetails}
-        setJobDetails={setJobDetails}
-        selectedTime={selectedTime}
-        setSelectedTime={setSelectedTime}
-        onBookNow={handleCompleteBooking}
-      />
+      {isBookingModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-2xl max-w-md w-full">
+            <h2 className="text-lg font-bold">{provider.companyName || `${provider.firstName}'s Services`}</h2>
+            <p className="text-sm text-gray-600">Address: {service.locationDetails || service.location}</p>
 
-      {/* Payment Modal */}
-      {showPaymentModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="flex justify-center my-4">
+              <img
+                src={provider.profilePicture || "/plumberEx2.jpg"}
+                alt="Provider"
+                className="w-24 h-24 rounded-full object-cover"
+              />
+            </div>
+
+            <DateCarousel
+              setSelectedTime={setSelectedTime}
+              setSelectedDate={setSelectedDate}
+            />
+
+            <p className="text-sm text-gray-600 font-semibold">Job Detail:</p>
+            <textarea
+              className="w-full px-3 py-2 border rounded-md text-sm mt-1"
+              placeholder="Describe your specific needs..."
+              value={jobDetails}
+              onChange={(e) => setJobDetails(e.target.value)}
+              rows="3"
+            ></textarea>
+
+            <div className="flex justify-end gap-2 mt-4">
+              <button
+                className="bg-blue-950 text-white px-4 py-2 rounded-md text-sm"
+                onClick={closeBookingModal}
+              >
+                Close
+              </button>
+              <button
+                className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700"
+                onClick={handlepayment}
+                disabled={!selectedTime}
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+     {/* Payment Modal */}
+     {isPaymentModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg shadow-2xl max-w-md w-full">
             <h3 className="text-lg font-bold mb-4">Payment QR Code</h3>
-            
+
             <div className="space-y-4">
               <div className="text-center">
                 <p className="font-semibold mb-2">Total Amount</p>
-                <p className="text-2xl text-primary">฿1,500</p>
+                <p className="text-2xl text-primary">{service.price}฿</p>
               </div>
-              
+
               <div className="flex justify-center">
                 <div className="w-64 h-64 bg-gray-200 flex items-center justify-center">
                   <span className="text-gray-600">QR Code Placeholder</span>
@@ -439,110 +567,28 @@ function ServiceDetails({ serviceId }) {
                 <p>The booking will be confirmed after payment verification</p>
               </div>
             </div>
+            
 
             <div className="flex justify-end gap-2 mt-4">
-              <button 
+              <button
                 className="bg-gray-400 text-white px-4 py-2 rounded-md text-sm"
-                onClick={() => setShowPaymentModal(false)}
+                onClick={closePaymentModal}
               >
                 Cancel
               </button>
-              <button 
+              <button
                 className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700"
                 onClick={handleConfirmPayment}
               >
                 Confirm Payment
               </button>
             </div>
+
           </div>
         </div>
       )}
     </>
   );
 }
-
-// Simplified BookingModal Component
-const BookingModal = ({ 
-  isModalOpen, 
-  setIsModalOpen,
-  service,
-  provider,
-  jobDetails,
-  setJobDetails,
-  selectedTime,
-  setSelectedTime,
-  onBookNow
-}) => {
-  if (!isModalOpen) return null;
-
-  return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-2xl max-w-md w-full">
-        {/* Header */}
-        <h2 className="text-lg font-bold">{provider.companyName || `${provider.firstName}'s Services`}</h2>
-        <p className="text-sm text-gray-600">Address: {service.locationDetails || service.location}</p>
-
-        {/* Image */}
-        <div className="flex justify-center my-4">
-          <img 
-            src={provider.profilePicture || "/plumberEx2.jpg"} 
-            alt="Provider" 
-            className="w-24 h-24 rounded-full object-cover" 
-          />
-        </div>
-
-        {/* Job Detail */}
-        <p className="text-sm text-gray-600 font-semibold">Job Detail:</p>
-        <textarea
-          className="w-full px-3 py-2 border rounded-md text-sm mt-1"
-          placeholder="Describe your specific needs..."
-          value={jobDetails}
-          onChange={(e) => setJobDetails(e.target.value)}
-          rows="3"
-        ></textarea>
-
-        {/* Available Times */}
-        <p className="text-sm text-gray-600 font-semibold mt-4">Available Time:</p>
-        <div className="flex flex-wrap gap-2 my-2">
-          <button 
-            className={`${selectedTime === '9:00' ? 'bg-blue-700' : 'bg-blue-500'} text-white px-4 py-2 rounded-md text-sm`}
-            onClick={() => setSelectedTime('9:00')}
-          >
-            9:00
-          </button>
-          <button 
-            className={`${selectedTime === '13:00' ? 'bg-blue-700' : 'bg-blue-500'} text-white px-4 py-2 rounded-md text-sm`}
-            onClick={() => setSelectedTime('13:00')}
-          >
-            13:00
-          </button>
-          <button 
-            className={`${selectedTime === '16:00' ? 'bg-blue-700' : 'bg-blue-500'} text-white px-4 py-2 rounded-md text-sm`}
-            onClick={() => setSelectedTime('16:00')}
-          >
-            16:00
-          </button>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex justify-end gap-2 mt-4">
-          <button
-            className="bg-gray-400 text-white px-4 py-2 rounded-md text-sm"
-            onClick={() => setIsModalOpen(false)}
-          >
-            Close
-          </button>
-          <button 
-            className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700"
-            onClick={onBookNow}
-            disabled={!selectedTime}
-          >
-            Book Now
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 export default ServiceDetails;

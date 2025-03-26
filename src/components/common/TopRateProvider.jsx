@@ -3,35 +3,35 @@ import React from 'react'
 const services = [
   {
     id: 1,
-    name: "Tech Tutors",
-    category: "IT Support",
+    name: "Alexander",
+    category: "Laundry",
     rating: 4.7,
     reviews: 29,
-    image: "https://i.pravatar.cc/50?img=1"
+    image: "/comment/1.jpg"
   },
   {
     id: 2,
-    name: "Tech Tutors",
-    category: "IT Support",
+    name: "Amelia ",
+    category: "Pet-Care",
     rating: 4.7,
     reviews: 29,
-    image: "https://i.pravatar.cc/50?img=3"
+    image: "/comment/3.jpg"
   },
   {
     id: 3,
-    name: "Tech Tutors",
-    category: "IT Support",
+    name: "Martinez",
+    category: "Cleaning",
     rating: 4.7,
     reviews: 29,
-    image: "https://i.pravatar.cc/50?img=6"
+    image: "/comment/5.jpg"
   },
   {
     id: 4,
-    name: "Tech Tutors",
-    category: "IT Support",
+    name: "Chloe",
+    category: "Caring",
     rating: 4.7,
     reviews: 29,
-    image: "https://i.pravatar.cc/50?img=7"
+    image: "/comment/8.jpg"
   }
 ];
 function TopRateProvider() {

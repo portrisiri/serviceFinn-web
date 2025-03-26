@@ -8,61 +8,61 @@ export default function ServiceNearby() {
   const services = [
     {
       id: 1,
-      name: "Evelyn Cleaner",
-      message: "I'm waiting for your response!",
+      name: "Alexander Laundry",
+      message: "Got a mountain of laundry? I'll turn chaos into crisp, clean comfort in no time! ✨🧺",
       date: "Dec, 8",
       avatar: "https://i.pravatar.cc/50?img=1"
     },
     {
       id: 2,
-      name: "Keng Plumber",
-      message: "I'm waiting for your response!",
+      name: "Ava Caring",
+      message: "Compassionate care that feels like family. Your loved ones are in safe, gentle hands. ❤️👵",
       date: "Dec, 8",
       avatar: "https://i.pravatar.cc/50?img=2"
     },
     {
       id: 3,
-      name: "Por Gerdener",
-      message: "I'm waiting for your response!",
+      name: "Ethan Transport",
+      message: "Reliable rides, punctual service. From point A to B with zero stress! 🚗💨",
       date: "Dec, 8",
       avatar: "https://i.pravatar.cc/50?img=3"
     },
     {
       id: 4,
-      name: "Lina Electrician",
-      message: "I'm waiting for your response!",
+      name: "Martinez Cleaning",
+      message: "Sparkling spaces, happy places! Let's transform your mess into pure magic. 🌟🧽",
       date: "Dec, 8",
       avatar: "https://i.pravatar.cc/50?img=4"
     },
     {
       id: 5,
-      name: "Evelyn Cleaner",
-      message: "I'm waiting for your response!",
+      name: "Isaac Gardening",
+      message: "Turning green spaces into living masterpieces. Nature's beauty, crafted with precision! 🌿🌱",
       date: "Dec, 8",
       avatar: "https://i.pravatar.cc/50?img=1"
     },
     {
       id: 6,
-      name: "Keng Plumber",
-      message: "I'm waiting for your response!",
+      name: "Chloe Caring",
+      message: "Nurturing care that goes beyond service - we're here to support and comfort. 🤗💕",
       date: "Dec, 8",
       avatar: "https://i.pravatar.cc/50?img=2"
     },
     {
       id: 7,
-      name: "Por Gerdener",
-      message: "I'm waiting for your response!",
+      name: "Benjamin Fixing",
+      message: "No repair too big, no problem too small. Let's get things working perfectly! 🔧🛠️",
       date: "Dec, 8",
       avatar: "https://i.pravatar.cc/50?img=3"
     },
     {
       id: 8,
-      name: "Lina Electrician",
-      message: "I'm waiting for your response!",
+      name: "Amelia Pet-Care",
+      message: "Tail-wagging happiness and expert care for your furry family members! 🐾❤️",
       date: "Dec, 8",
       avatar: "https://i.pravatar.cc/50?img=4"
     }
-  ];
+];
 
   useEffect(() => {
     setVisibleServices(services.slice(0, 3));
@@ -81,7 +81,7 @@ export default function ServiceNearby() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
         {/* Map Section */}
         <div className="w-8/10 h-full rounded-4xl shadow mx-auto"
-        style={{ backgroundImage: "url('/mapNearby.png')" }}
+        style={{ backgroundImage: "url('/mapNearby.png')", backgroundPosition: "center" }}
         >
           {/* <img
             src="/mapNearby.png"

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import { Skeleton } from '@mui/material';
 
 // Random marker
 // function getRandomNearbyPositions(center, radiusInKm, count) {
@@ -43,6 +45,7 @@ function MapArea(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [center, setCenter] = useState();
   const [zoom, setZoom] = useState();
+  const map = useMap;
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -68,8 +71,8 @@ function MapArea(props) {
 
   useEffect(() => {
     setCenter([searchParams.location.latitude, searchParams.location.longitude]);
-    setZoom(12.5);
-  }, [results]);
+    setZoom(13);
+  }, [searchParams]);
 
   // Market Icon Color
   var redIcon = new L.Icon({
@@ -89,13 +92,11 @@ function MapArea(props) {
     shadowSize: [41, 41],
   });
 
-  // Animation
-
   return (
     <div className=" p-4 flex gap-4 min-h-full">
       <div className="w-[98%] mx-auto min-h-full bg-blue-200">
         {!isLoading ? (
-          <MapContainer center={center || currentPosition} zoom={12} style={{ height: '100%', width: '100%' }}>
+          <MapContainer center={center || currentPosition} zoom={16} style={{ height: '100%', width: '100%' }}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution="&copy; OpenStreetMap contributors"
@@ -107,7 +108,7 @@ function MapArea(props) {
             </Marker>
 
             {/* Search Location */}
-            <Marker position={[searchParams.location.latitude, searchParams.location.longitude]} icon={redIcon}>
+            <Marker position={[searchParams.location?.latitude, searchParams.location?.longitude]} icon={redIcon}>
               <Popup>Showing Results within {searchParams.radius}!</Popup>
             </Marker>
 
@@ -121,7 +122,24 @@ function MapArea(props) {
             {results.map((provider) => (
               <Marker key={provider.providerId} position={[provider.latitude, provider.longitude]}>
                 <Popup>
-                  {provider.firstName} {provider.lastName}
+                  {/* Decorate here ---------------------------------------------------------------------------- */}
+                  <div className="flex gap-4">
+                    <div className="w-[80px] rounded-full bg-blue-50">
+                      <img
+                        src={provider.profilePicture || '/technician.jpg'}
+                        className="aspect-square rounded-full object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-center items-center">
+                      <div className="text-lg">
+                        {provider.firstName} {provider.lastName}
+                      </div>
+                      <div>{provider.providerRating ? `${provider.providerRating}⭐` : 'No Rating'}</div>
+                      <div>{`${provider?.distance?.toFixed(2)}km from you`}</div>
+                      <div>See Details</div>
+                    </div>
+                  </div>
+                  {/* ---------------------------------------------------------------------------------------- */}
                 </Popup>
               </Marker>
             ))}
@@ -129,7 +147,7 @@ function MapArea(props) {
             <ChangeView center={center} zoom={zoom} />
           </MapContainer>
         ) : (
-          <p>Loading...</p>
+          <Skeleton variant="rectangular" width={210} height={118} />
         )}
       </div>
     </div>

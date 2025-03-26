@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import ServiceCard from "./ServiceCard";
+import { useEffect } from 'react';
+import ServiceCard from './ServiceCard';
 // import useSearchStore from "../../services/searchService";
 
 const ServicesList = ({ results }) => {
@@ -21,7 +21,6 @@ const ServicesList = ({ results }) => {
 
   return (
     <div className="space-y-4 p-4">
-      <div className="text-lg font-medium">Service found .. item</div>
       {results.map((service) => (
         <ServiceCard key={service.providerId} serviceData={service} />
       ))}

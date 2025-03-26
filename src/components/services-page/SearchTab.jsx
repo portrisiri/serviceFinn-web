@@ -97,7 +97,7 @@ function SearchTab(props) {
   };
 
   return (
-    <div className="mx-auto bg-white shadow-gray-400 p-7 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-4 gap-4 max-w-lg md:max-w-6xl">
+    <div className="mx-auto bg-white shadow-gray-400 p-7 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-3 gap-4 max-w-lg md:max-w-6xl ">
       {/* subCatName Selection */}
       <div className="w-full">
         <select
@@ -135,7 +135,7 @@ function SearchTab(props) {
         // value={location}
       >
         <option value="">Current Location</option>
-        <option value='{"latitude": 13.6592, "longitude": 100.3991, "name:" "Bang Bon"}'>Bang Bon</option>
+        <option value='{"latitude": 13.6592, "longitude": 100.3991, "name": "Bang Bon"}'>Bang Bon</option>
         <option value='{"latitude": 13.765833, "longitude": 100.647778, "name": "Bang Kapi"}'>Bang Kapi</option>
         <option value='{"latitude": 13.696111, "longitude": 100.409444, "name": "Bang Khae"}'>Bang Khae</option>
         <option value='{"latitude": 13.873889, "longitude": 100.596389, "name": "Bang Khen"}'>Bang Khen</option>
@@ -205,7 +205,7 @@ function SearchTab(props) {
       </div>
 
       {/* Buttons */}
-      <div className="w-full flex gap-2 h-[50px]">
+      {/* <div className="w-full flex gap-2 h-[50px]">
         <button
           className="flex-2/4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md"
           onClick={() => {
@@ -219,7 +219,7 @@ function SearchTab(props) {
         >
           Find Service
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

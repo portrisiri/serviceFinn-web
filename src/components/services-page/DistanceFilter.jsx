@@ -7,8 +7,8 @@ const marks = [
     label: '1km',
   },
   {
-    value: 20,
-    label: '20km',
+    value: 10,
+    label: '10km',
   },
 ];
 
@@ -19,11 +19,12 @@ function DistanceFilter(props) {
   };
   return (
     <div>
+      Distance from you
       <Slider
         aria-label="Always visible"
-        defaultValue={5}
+        defaultValue={searchParams.radius}
         min={1}
-        max={20}
+        max={10}
         // getAriaValueText={valuetext}
         step={0.5}
         marks={marks}

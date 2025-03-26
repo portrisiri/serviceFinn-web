@@ -7,7 +7,7 @@ import ProviderRegister from "../auth/ProviderRegister";
 
 function Home() {
   return (
-    <div>
+    <div >
       <HomeSections/>
     </div>
   );

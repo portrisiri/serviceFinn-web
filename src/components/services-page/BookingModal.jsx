@@ -18,25 +18,26 @@ const BookingModal = ({ isModalOpen, setIsModalOpen }) => {
 
         <DateCarousel />
 
-        {/* Available Times */}
-        <p className="text-center text-sm text-blue-900 font-semibold">Available Time:</p>
-        <div className="flex mx-25 gap-2 my-2">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm">9:00</button>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm">13:00</button>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm">16:00</button>
-        </div>
-
+        
         {/* Job Detail */}
         <p className="text-sm text-gray-600 font-semibold">Job Detail:</p>
-        <textarea className="w-full px-3 py-2 border rounded-md text-sm" placeholder="Enter job details..."></textarea>
-
-        {/* Buttons */}
-        <div className="flex justify-end gap-2 mt-4">
-          <button className="bg-gray-400 text-white px-4 py-2 rounded-md text-sm" onClick={() => setIsModalOpen(false)}>
-            Close
-          </button>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700">Book Now</button>
-        </div>
+        <textarea
+          className="w-full px-3 py-2 border rounded-md text-sm"
+          placeholder="Enter job details..."
+        ></textarea>
+         {/* Buttons */}
+      <div className="flex justify-end gap-2 mt-4">
+      <button
+        className="bg-gray-400 text-white px-4 py-2 rounded-md text-sm"
+        onClick={() => setIsModalOpen(false)}
+      >
+        Close
+      </button>
+      <button className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700">
+        Book Now
+      </button>
+    </div>
+        
       </div>
     </div>
   );

@@ -7,16 +7,16 @@ const BookingModal = ({ isModalOpen, setIsModalOpen }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-2xl max-w-md w-full ">
-         {/* Image */}
+        {/* Image */}
         <div className="flex justify-center my-4">
           <img src="maidcleaning.jpg" alt="Shop" className="w- rounded-md" />
         </div>
-        
+
         {/* Header */}
         <h2 className="text-left mx-10 text-lg text-blue-900 font-bold">AAA Shop</h2>
         <p className="text-left mx-10 text-sm text-blue-900">Address: 56 Sukhumvit Road, Pathumwan, Bangkok</p>
-        
-        <DateCarousel/>
+
+        <DateCarousel />
 
         
         {/* Job Detail */}

@@ -113,7 +113,7 @@ function SearchTabVertical(props) {
       <div className="w-full">
         <select
           className="w-full p-[10.5px] border rounded-md focus:ring focus:ring-blue-300 h-[50px]"
-          value={subCatName}
+          value={searchParams.subCatId}
           onChange={handlesubCatNameChange}
           disabled={subCategories.length === 0}
         >
@@ -133,7 +133,7 @@ function SearchTabVertical(props) {
         // value={location}
       >
         <option value="">Current Location</option>
-        <option value='{"latitude": 13.6592, "longitude": 100.3991, "name:" "Bang Bon"}'>Bang Bon</option>
+        <option value='{"latitude": 13.6592, "longitude": 100.3991, "name": "Bang Bon"}'>Bang Bon</option>
         <option value='{"latitude": 13.765833, "longitude": 100.647778, "name": "Bang Kapi"}'>Bang Kapi</option>
         <option value='{"latitude": 13.696111, "longitude": 100.409444, "name": "Bang Khae"}'>Bang Khae</option>
         <option value='{"latitude": 13.873889, "longitude": 100.596389, "name": "Bang Khen"}'>Bang Khen</option>

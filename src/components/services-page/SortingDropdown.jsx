@@ -16,9 +16,11 @@ function SortingDropdown(props) {
         <option value="" disabled>
           Order by?
         </option>
-        <option value="distance">Distance</option>
-        <option value="providerrating">Rating</option>
-        <option value="price">Price</option>
+        <option value="distance">{'Distance from you'}</option>
+        <option value="providerrating">{'Rating (high to low)'}</option>
+        <option value="providerrating">{'Rating (low to high)'}</option>
+        <option value="price">{'Price (high to low)'}</option>
+        <option value="price">{'Price (low to high)'}</option>
       </select>
     </div>
   );

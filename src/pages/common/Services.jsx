@@ -1,5 +1,3 @@
-
-
 import { forwardRef, useEffect, useState } from 'react';
 
 import Filter from '../../components/services-page/Filter';
@@ -36,8 +34,11 @@ const Transition = forwardRef(function Transition(props, ref) {
 function Services() {
   // Results, map this to provider cards
   const [results, setReults] = useState([]);
-  const [resultsCount, setResultsCount] = useState(0);
+  const [resultsCount, setResultsCount] = useState(null);
   const [currentLocation, setCurrentLocation] = useState({});
+  const [renderedParams, setRenderedParams] = useState({
+    radius: 0,
+  });
   // Search parameters, use this to filter providers
   // Send as props to search components
   const [searchParams, setSearchParams] = useState({
@@ -49,7 +50,7 @@ function Services() {
     maxPrice: 0,
     orderBy: '',
     sort: '',
-    radius: 5,
+    radius: 3,
   });
   const searchProviders = useSearchStore((state) => state.searchProvidersServicePage);
   // Temporary parameters and results from home page
@@ -64,29 +65,37 @@ function Services() {
     if (tempResults) {
       setReults((prv) => tempResults);
     } else {
-      console.log('all providers');
-      const results = await getTempProviders();
-      console.log(results);
-      setReults((prv) => results);
+      // console.log('all providers');
+      const response = await getTempProviders();
+      // console.log(response);
+      setReults((prv) => response.data.results);
+      setResultsCount((prv) => response.data.count);
     }
     setResultsCount((prv) => tempCount);
     setSearchParams((prv) => ({
       ...prv,
       categoryId: tempCategory,
       date: getCurrentThaiTime(),
+      radius: 3,
     }));
   }, []);
 
   useEffect(() => {
     setSearchParams((prv) => ({ ...prv, location: currentLocation }));
+    setRenderedParams(searchParams);
   }, [currentLocation]);
+
+  useEffect(() => {
+    console.log('searchParams changing...');
+    handleSearchSubmit();
+  }, [searchParams]);
 
   // Get Current Position ------------------------------------------------------------------------------------
   const success = (position) => {
     const locationObject = {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude,
-      name: 'Current Position',
+      name: 'your current position',
     };
     setCurrentLocation((prv) => locationObject);
   };
@@ -106,11 +115,11 @@ function Services() {
   // Handle Submit
   const handleSearchSubmit = async () => {
     const response = await searchProviders(searchParams);
+    console.log(response);
     setReults((prv) => response.data.results);
     setResultsCount((prv) => response.data.count);
+    setRenderedParams(searchParams);
   };
-
-
 
   // Modal Handling
   const [openModal, setOpenModal] = useState(false);
@@ -122,7 +131,6 @@ function Services() {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
-
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -164,6 +172,7 @@ function Services() {
               searchParams={searchParams}
               setSearchParams={setSearchParams}
               handleSearchSubmit={handleSearchSubmit}
+              currentLocation={currentLocation}
             />
           </div>
         </div>
@@ -171,13 +180,15 @@ function Services() {
         {/* Main Content */}
         <div className="col-span-9">
           <div className="bg-white p-4 rounded-lg shadow-md mb-4 flex justify-between items-center">
-            <h1 className="text-xl font-bold">Bangkok: {resultsCount} services found</h1>
-            <SortOption />
+            <h1 className="text-xl font-bold">
+              {resultsCount} services found within {renderedParams.radius}km of{' '}
+              {renderedParams.location?.name || 'your current position'}
+            </h1>
           </div>
-          <div>Fetched {resultsCount} results</div>
+          {/* <div>Fetched {resultsCount} results</div> */}
 
           <div className="">
-            <ServicesList results={results}/>
+            <ServicesList results={results} />
           </div>
 
           <div className="mt-6 flex justify-center">

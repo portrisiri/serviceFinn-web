@@ -7,7 +7,7 @@ import ProviderRegister from "../auth/ProviderRegister";
 
 function Home() {
   return (
-    <div style={{ backgroundImage: "url(/web-bg.jpg)" }} >
+    <div >
       <HomeSections/>
     </div>
   );

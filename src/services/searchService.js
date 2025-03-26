@@ -20,7 +20,7 @@ const useSearchStore = create((set, get) => ({
       set({ location: targetLocation, categoryId: targetCategory });
       const { location, categoryId } = get();
       const categoryIdString = categoryId ? `&categoryId=${categoryId}` : '';
-      const queryString = `orderBy=distance&sort=asc&latitude=${location.latitude}&longitude=${location.longitude}${categoryIdString}`;
+      const queryString = `radius=3&orderBy=distance&sort=asc&latitude=${location.latitude}&longitude=${location.longitude}${categoryIdString}`;
       const response = await axios.get(`http://localhost:4289/provider/filter?${queryString}`);
       set({ results: response.data.results, resultsCount: response.data.count });
     } catch (error) {
@@ -30,8 +30,7 @@ const useSearchStore = create((set, get) => ({
   searchProvidersLanding: async () => {
     try {
       const response = await axios.get(`http://localhost:4289/provider/?orderBy=providerRating&sort=desc`);
-      const results = response.data.providers;
-      return results;
+      return response;
     } catch (error) {
       console.log(error);
     }
@@ -57,14 +56,16 @@ const useSearchStore = create((set, get) => ({
         ? `minPrice=${searchParams.minPrice}&maxPrice=${searchParams.maxPrice}`
         : '';
     priceString && optionalQuery.push(priceString);
-    const sortString = searchParams.sort
-      ? `sort=${searchParams.sort}`
-      : searchParams.orderBy == 'rating'
-      ? `sort=desc`
-      : `sort=asc`;
-    const orderByString = searchParams.orderBy
-      ? `orderBy=${searchParams.orderBy}&${sortString}`
-      : 'orderBy=DISTANCE&$sort=asc';
+    // const sortString = searchParams.sort ? `sort=${searchParams.sort}` : '';
+    // const orderByString = searchParams.orderBy
+    //   ? `orderBy=${searchParams.orderBy}&${sortString}`
+    //   : 'orderBy=DISTANCE&sort=asc';
+    let orderByString = '';
+    if (searchParams.orderBy == 'providerrating') {
+      orderByString = 'orderBy=providerRating&sort=desc';
+    } else {
+      orderByString = 'orderBy=distance&sort=asc';
+    }
     orderByString && optionalQuery.push(orderByString);
     const optionalQueryString = optionalQuery.join('&');
 

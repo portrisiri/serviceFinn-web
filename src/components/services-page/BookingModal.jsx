@@ -1,8 +1,15 @@
 import React from 'react';
 import DateCarousel from './DateCarousel';
+import axios from 'axios';
 
 const BookingModal = ({ isModalOpen, setIsModalOpen }) => {
   if (!isModalOpen) return null;
+
+  const handlepayment = async()=>{
+    const resp = await axios.post('http://localhost:4289/payment/create-payment')
+    // Redirect user to Stripe checkout
+    window.location.href = resp.data.checkoutUrl;
+  }
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -41,7 +48,7 @@ const BookingModal = ({ isModalOpen, setIsModalOpen }) => {
           >
             Close
           </button>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700">
+          <button onClick={handlepayment} className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700">
             Book Now
           </button>
         </div>

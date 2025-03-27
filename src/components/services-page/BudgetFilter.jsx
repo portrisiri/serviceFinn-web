@@ -9,17 +9,6 @@ const marks = [
 ];
 
 function BudgetFilter(props) {
-<<<<<<< HEAD
-  // const { searchParams, setSearchParams } = props;
-  // useEffect(() => {
-  //   if (!searchParams.maxPrice) {
-  //     setSearchParams((prv) => ({ ...prv, maxPrice: 1000 }));
-  //   }
-  // }, []);
-  // const handleBudgetChange = (event, newValue) => {
-  //   setSearchParams((prv) => ({ ...prv, minPrice: newValue[0], maxPrice: newValue[1] }));
-  // };
-=======
   const { searchParams, setSearchParams } = props;
   useEffect(() => {
     if (!searchParams?.maxPrice) {
@@ -29,7 +18,6 @@ function BudgetFilter(props) {
   const handleBudgetChange = (event, newValue) => {
     setSearchParams((prv) => ({ ...prv, minPrice: newValue[0], maxPrice: newValue[1] }));
   };
->>>>>>> dev
   return (
     <div className="w-full">
       {/* <div className="divider my-0"></div>

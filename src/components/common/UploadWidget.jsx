@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-function UploadWidget({ onUpload }) {
+function UploadWidget({ onUpload,setValue }) {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
 
@@ -18,16 +18,19 @@ function UploadWidget({ onUpload }) {
         }
         if (!error && result && result.event === "success") {
           console.log("Upload successful:", result.info);
-          onUpload(result.info.secure_url); // Call the onUpload function with the URL
+          const fileUrl = result.info.secure_url;
+          onUpload("fileUrl", fileUrl);
         }
       }
     );
-  }, [onUpload]); // Add onUpload as a dependency
+  }, []); // Add onUpload as a dependency
 
   return (
     <button
       className="btn btn-xs bg-blue-400 hover:bg-blue-500 text-white"
-      onClick={() => widgetRef.current.open()}
+      onClick={(e) => {
+        e.preventDefault()
+        widgetRef.current.open()}}
     >
       Upload Document
     </button>

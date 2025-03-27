@@ -20,6 +20,7 @@ const HeroBanner = () => {
     "/garden.webp",
     "/technician.jpg",
     "/mapNearby.png",
+    "/emily.webp"
  
   ];
 

@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css'
 function App() {
   return (
     <div>
-      <MainNav/>
+      {/* <MainNav/> */}
     <main>
       <AppRouter/>
     </main>

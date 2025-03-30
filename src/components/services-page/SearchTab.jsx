@@ -97,7 +97,7 @@ function SearchTab(props) {
   };
 
   return (
-    <div className="mx-auto bg-white shadow-gray-400 p-7 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-3 gap-4 max-w-lg md:max-w-6xl ">
+    <div className="mx-auto bg-white shadow-bg-[#0356BF]  p-7 rounded-lg shadow-lg grid grid-cols-1 md:grid-cols-3 gap-4 max-w-lg md:max-w-6xl ">
       {/* subCatName Selection */}
       <div className="w-full">
         <select

@@ -72,9 +72,9 @@ function AppRouter() {
         <Route
           path="user"
           element={
-            <SignedIn>
+            // <SignedIn>
               <LayoutUser />
-            </SignedIn>
+            // {/* </SignedIn> */}
           }
         >
           <Route path="profile" element={<ProfileUser />} />
@@ -117,8 +117,10 @@ function AppRouter() {
         {/* OTHERS */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-
-      <SignedIn>
+</>
+  )
+}
+      {/* <SignedIn>
         <PrivateRouteNavigation />
       </SignedIn>
     </>
@@ -145,6 +147,6 @@ function PrivateRouteNavigation() {
   }, [user]);
 
   return null; // อันนี้คือ protected Route
-}
+} */}
 
 export default AppRouter;

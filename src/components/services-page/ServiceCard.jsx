@@ -38,11 +38,11 @@ const ServiceCard = ({ serviceData }) => {
   const discountedPrice = Math.round(displayPrice * 0.85); // Example: 15% discount for limited time deals
 
   return (
-    <div className="flex max-w-6xl border rounded-lg shadow-md p-4 gap-4 bg-white">
+    <div className="flex max-w-6xl max-h-50 border rounded-lg shadow-md p-4 gap-4 bg-white">
       {/* Image Section */}
       <div className="relative w-1/3">
         <img
-          src={serviceData.profilePicture || '/technician.jpg'}
+          src={serviceData.profilePicture || '/nanny5.jpg'}
           alt={`${categoryName} service by ${providerName}`}
           className="w-full h-full rounded-lg object-cover"
         />
@@ -54,7 +54,7 @@ const ServiceCard = ({ serviceData }) => {
       {/* Details Section */}
       <div className="flex-1 flex flex-col justify-between">
         <div>
-          <h2 className="text-lg font-bold text-blue-700">
+          <h2 className="text-lg font-bold text-[#0470EF] hover:text-[#0356BF] cursor-pointer">
             {title || `${categoryName || ''} ${subCatName ? `- ${subCatName}` : ''} by ${providerName}`}
           </h2>
           <div className="flex items-center gap-2 text-yellow-500 text-md">
@@ -105,18 +105,18 @@ const ServiceCard = ({ serviceData }) => {
 
           <div>
             <button
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700"
+              className="bg-[#0470EF] hover:bg-[#0356BF] text-white font-bold py-2 px-4 rounded-lg"
               onClick={() => setIsModalOpen(true)}
             >
               BOOK NOW
             </button>
             <br />
-            <Link
+            {/* <Link
               to={`/service-details/${serviceData.providerId}`}
               className="text-red-500 text-sm flex justify-center mt-2 hover:decoration-2"
             >
               more details
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

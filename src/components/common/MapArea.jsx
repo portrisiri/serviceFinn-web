@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-le
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { Skeleton } from '@mui/material';
+import { Link } from 'react-router';
 
 // Random marker
 // function getRandomNearbyPositions(center, radiusInKm, count) {
@@ -136,7 +137,7 @@ function MapArea(props) {
                       </div>
                       <div>{provider.providerRating ? `${provider.providerRating}⭐` : 'No Rating'}</div>
                       <div>{`${provider?.distance?.toFixed(2)}km from you`}</div>
-                      <div>See Details</div>
+                      <div><Link to = "/service-details/P87654BKK">See Details</Link></div>
                     </div>
                   </div>
                   {/* ---------------------------------------------------------------------------------------- */}

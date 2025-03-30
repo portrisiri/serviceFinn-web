@@ -56,8 +56,8 @@ function Searchbar() {
   // --------------------------------------------------------------------------------------------------------
 
   return (
-    <div className="relative w-full h-full md:h-[500px] flex items-center justify-center text-center bg-cover bg-center isolation-auto rounded-4xl">
-      <div className="absolute top-0 left-0 w-full h-full z-0">
+    <div className="relative w-full h-full md:h-[500px] flex items-center justify-center text-center bg-cover bg-center isolation-auto rounded-4xl overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full z-0 rounded-4xl overflow-hidden">
         <BannerImages />
       </div>
       {/* Content */}

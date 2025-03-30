@@ -39,7 +39,7 @@ export default function ServiceNearby() {
       name: "Isaac Gardening",
       message: "Turning green spaces into living masterpieces. Nature's beauty, crafted with precision! 🌿🌱",
       date: "Dec, 8",
-      avatar: "https://i.pravatar.cc/50?img=1"
+      avatar: "https://i.pravatar.cc/50?img=11"
     },
     {
       id: 6,
@@ -76,7 +76,7 @@ export default function ServiceNearby() {
   }, []);
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-md">
+    <div className="bg-white p-8 rounded-lg shadow-md mx-auto w-full max-w-3xl">
       <h2 className="text-2xl font-bold mb-6 text-center">Service nearby</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
         {/* Map Section */}

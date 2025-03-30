@@ -50,7 +50,7 @@ function Services() {
     maxPrice: 0,
     orderBy: '',
     sort: '',
-    radius: 3,
+    radius: 7,
   });
   const searchProviders = useSearchStore((state) => state.searchProvidersServicePage);
   // Temporary parameters and results from home page
@@ -60,25 +60,37 @@ function Services() {
   const getTempProviders = useSearchStore((state) => state.searchProvidersLanding);
   // const tempLocation = useSearchStore((state) => state.location);
 
-  useEffect(async () => {
-    navigator.geolocation.getCurrentPosition(success, error);
-    if (tempResults) {
-      setReults((prv) => tempResults);
-    } else {
-      // console.log('all providers');
-      const response = await getTempProviders();
-      // console.log(response);
-      setReults((prv) => response.data.results);
-      setResultsCount((prv) => response.data.count);
-    }
-    setResultsCount((prv) => tempCount);
-    setSearchParams((prv) => ({
-      ...prv,
-      categoryId: tempCategory,
-      date: getCurrentThaiTime(),
-      radius: 3,
-    }));
-  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // จัดการ geolocation
+        navigator.geolocation.getCurrentPosition(success, error);
+  
+        // ถ้ามี tempResults ให้ใช้
+        if (tempResults) {
+          setResults(tempResults);
+          setResultsCount(tempCount);
+        } else {
+          // ถ้าไม่มี tempResults ให้ fetch
+          const response = await getTempProviders();
+          setResults(response.data.results);
+          setResultsCount(response.data.count);
+        }
+  
+        // อัพเดท search params
+        setSearchParams(prev => ({
+          ...prev,
+          categoryId: tempCategory,
+          date: getCurrentThaiTime(),
+          radius: 3,
+        }));
+      } catch (err) {
+        console.error('เกิดข้อผิดพลาดในการดึงข้อมูล:', err);
+      }
+    };
+  
+    fetchData();
+  }, []); // dependency array ว่าง
 
   useEffect(() => {
     setSearchParams((prv) => ({ ...prv, location: currentLocation }));
@@ -133,14 +145,14 @@ function Services() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="container mx-auto p-4 flex gap-4 overflow-x-auto justify-center">
+    <div>
+      <div className="container mx-auto p-4 flex gap-4 overflow-x-auto justify-center bg-[#0470EF]">
         {services.map((service) => (
           <button
             key={service.value}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full border shadow-sm transition ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-full shadow-sm transition ${
               searchParams.categoryId == service.value
-                ? 'bg-blue-500 text-white'
+                ? 'bg-[#024bab] text-white'
                 : 'bg-white text-gray-700 hover:shadow-md'
             }`}
             onClick={(e) => handleCategoryChange(e, service.value)}
@@ -152,7 +164,7 @@ function Services() {
       </div>
 
       {/* Search Bar */}
-      <div className="bg-white shadow-md p-4">
+      <div className=" shadow-md p-4">
         <SearchTab
           currentLocation={currentLocation}
           searchParams={searchParams}
@@ -163,10 +175,10 @@ function Services() {
       <div className="container mx-auto p-4 grid grid-cols-12 gap-6">
         {/* Sidebar - MapView & Filters */}
         <div className="col-span-3 flex flex-col gap-4">
-          <div className="bg-white p-4 rounded-lg shadow-md h-60">
+          <div className="bg-white rounded-lg shadow-md h-60">
             <MapView handleOpenModal={handleOpenModal} />
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-md">
+          <div className="bg-gray-100 p-4 rounded-lg shadow-md">
             <h2 className="text-lg font-semibold mb-2">Filter by:</h2>
             <Filter
               searchParams={searchParams}
@@ -179,7 +191,7 @@ function Services() {
 
         {/* Main Content */}
         <div className="col-span-9">
-          <div className="bg-white p-4 rounded-lg shadow-md mb-4 flex justify-between items-center">
+          <div className="bg-gray-100 p-4 rounded-lg shadow-md mb-4 flex justify-between items-center">
             <h1 className="text-xl font-bold">
               {resultsCount} services found within {renderedParams.radius}km of{' '}
               {renderedParams.location?.name || 'your current position'}
@@ -198,7 +210,7 @@ function Services() {
       </div>
       {/* Map Popup ----------------------------------------------------------------------*/}
       <Dialog fullScreen open={openModal} onClose={handleCloseModal} TransitionComponent={Transition}>
-        <AppBar sx={{ position: 'relative', backgroundColor: 'primary' }}>
+        <AppBar sx={{ position: 'sticky', backgroundColor: '#0470EF' }}>
           <Toolbar>
             <Typography sx={{ ml: 2, flex: 1, textAlign: 'center' }} variant="h6" component="div">
               Map View
@@ -208,13 +220,13 @@ function Services() {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <div className="flex">
+        <div className="flex ml-7">
           {/* Left Container */}
-          <div className="w-1/5">
-            <div className="bg-white shadow-md p-4">
+          <div className="w-1/5 gap-4 flex flex-col mt-4">
+            <div className="bg-gray-100 shadow-md p-4">
               <SearchTabVertical searchParams={searchParams} setSearchParams={setSearchParams} />
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-md">
+            <div className="bg-gray-100 p-4 rounded-lg shadow-md">
               <h2 className="text-lg font-semibold mb-2">Filter by:</h2>
               <Filter
                 searchParams={searchParams}

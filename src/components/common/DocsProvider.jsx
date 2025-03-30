@@ -18,7 +18,7 @@ function DocsProvider() {
         <p>booking, and grow your business</p>
   </div>
   
-  <button className='btn bg-[#0470EF] text-white font-extralight'>
+  <button className='btn bg-[#0470EF] text-white font-lg'>
   <Link to='/docs-preview'>Document Preview</Link>
   </button>
   

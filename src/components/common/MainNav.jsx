@@ -54,9 +54,9 @@ function MainNav() {
 
   return (
     <>
-    <nav className="z-50 flex items-center justify-between p-4 shadow-md bg-blue-900 sticky top-0 opacity-90">
+    <nav className="z-50 flex items-center justify-between p-4 shadow-md bg-blue-900 sticky top-0">
       <div className="2/3 flex items-center">
-        <span className="w-[125px]"><img src="/logo.png" alt="servicefinn" /></span>
+        <span className="absolute w-[170px] "><img src="/logo.png" alt="servicefinn" /></span>
       </div>
 
       <div className='1/3 flex gap-5'>

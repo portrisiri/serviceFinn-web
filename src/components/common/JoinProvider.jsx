@@ -18,7 +18,7 @@ function JoinProvider() {
 {/* <button className='btn bg-[#0470EF] text-white font-extralight'>Register as  Provider</button> */}
   
       <Link to="/signupprovider">
-        <button className="btn bg-[#0470EF] text-white font-extralight">
+        <button className="btn text-[#0470EF] bg-white">
           Register as Provider
         </button>
       </Link>

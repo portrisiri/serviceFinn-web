@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, User, Tag, Heart, Share, MessageSquare, Star } from 'lucide-react';
-import { useUser } from '@clerk/clerk-react';
+import { SignInButton, useUser } from '@clerk/clerk-react';
 import DateCarousel from '../../components/services-page/DateCarousel';
 import axios from 'axios';
+import { createAlert2 } from '../../utils/createAlert';
 
 function ServiceDetails({ serviceId }) {
   // States for data
@@ -234,6 +235,17 @@ function ServiceDetails({ serviceId }) {
     setIsPaymentModalOpen(true);
   };
   const handlepayment = async()=>{
+    if(!selectedTime) {
+      alert('Please select a time slot');
+      return;
+    }
+    if(!user) {
+      createAlert2();
+      <SignInButton mode="modal" afterSignInUrl="/service-details/P87654BKK">
+      <button className="btn-primary">Sign In</button>
+    </SignInButton>
+      return;
+    }
     const resp = await axios.post('http://localhost:4289/payment/create-payment')
     // Redirect user to Stripe checkout
    setModalOpen( window.location.href = resp.data.checkoutUrl)

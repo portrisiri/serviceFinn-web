@@ -15,7 +15,7 @@ import BannerImages from './BannerImages';
 function HomeSections() {
   return (
     <div>
-      <section id="search" className="scroll-mt-20 p-5 max-w-full max-h-full object-cover">
+      <section id="search" className="scroll-mt-20 m-5 max-w-full max-h-full object-cover rounded-4xl bg-amber-300">
         <Searchbar />
       </section>
 
@@ -26,7 +26,7 @@ function HomeSections() {
       <section id="categories" className="scroll-mt-20 p-10  h-full">
         <Categories />
       </section>
-      <section id="how-it-works" className="scroll-mt-20 p-10 bg-white">
+      <section id="how-it-works" className="scroll-mt-20 p-10">
         <Howitworks />
       </section>
       <section id="nearby" className="scroll-mt-20 p-10 h-full">
@@ -35,8 +35,8 @@ function HomeSections() {
       <section id="top-provider" className="scroll-mt-20 p-10 h-full">
         <TopRateProvider />
       </section>
-      <section id="join-service-provider" className="scroll-mt-20 p-10 h-full"
-      style={{backgroundImage: 'url(/cover-regisprovider.png)', backgroundSize: 'cover', backgroundPosition: 'center'}}
+      <section id="join-service-provider" className="scroll-mt-20 p-10 h-full bg-[#0356BF]"
+      style={{backgroundImage: 'url(/cover-regisprovider2.png)', backgroundSize: 'cover', backgroundPosition: 'center'}}
       >
         <JoinProvider />
       </section>

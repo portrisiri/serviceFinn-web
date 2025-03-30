@@ -1,11 +1,11 @@
 const Footer = () => {
     return (
-      <footer className="bg-white text-black">
+      <footer className="bg-[#0470EF] text-white">
         <div className="container mx-auto px-6 py-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {/* Logo Section */}
             <div>
-              <h2 className="text-2xl font-bold border-b-2 border-black inline-block pb-1">
+              <h2 className="text-2xl font-bold border-b-2 border-white inline-block pb-1">
                 ServiceFinn
               </h2>
             </div>
